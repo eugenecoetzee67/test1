@@ -1,4 +1,5 @@
 #include <iostream>
+#include <thread>
 
 void function1(void)
 {
@@ -8,7 +9,7 @@ void function1(void)
 
 int main(int argc, char* argv[])
 {
-    function1();
-
+    std::thread thread1(function1);
+    thread1.join();
     return 0;
 } 
