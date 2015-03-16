@@ -8,7 +8,7 @@ void function1(void)
 int main(int argc, char* argv[])
 {
 
-function1();
+ function1();
 
-return 0;
+ return 0;
 } 
