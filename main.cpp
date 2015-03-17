@@ -15,7 +15,8 @@ int main(int argc, char* argv[])
     thread1.detach();
     
     //demonstrate the power and syntax of lambda function in C++
-    []()->void {   std::cout << "BYE" << std::endl;   };
+    auto myByeFunction = []()->void {   std::cout << "BYE" << std::endl;   };
+    myByeFunction();
     
     std::cout.flush();
     return 0;
