@@ -16,6 +16,7 @@ int main(int argc, char* argv[])
     
     //demonstrate the power and syntax of lambda function in c++
     [](){   std::cout << "BYE" << std::endl;   };
-
+    
+    std::cout.flush();
     return 0;
 } 
