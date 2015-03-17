@@ -9,6 +9,9 @@ void function1(void)
 
 int main(int argc, char* argv[])
 {
+    int numCPUs = std::thread::hardware_concurrency();
+    std::cout << "number of CPUs = " << numCPUs << std::endl;
+    
     std::thread thread1(function1);
     
     //main thread detaches thread1 
