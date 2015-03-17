@@ -16,7 +16,10 @@ int main(int argc, char* argv[])
     
     //......
 
-    thread1.join();
+    if (thread1.joinable())
+    { 
+        thread1.join();
+    }
 
     //demonstrate the power and syntax of lambda function in C++
     auto myByeFunction = [](std::string paramPrintMessage)->void {   std::cout << "BYE " << paramPrintMessage << std::endl;   };
