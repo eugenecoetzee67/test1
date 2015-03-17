@@ -14,8 +14,8 @@ int main(int argc, char* argv[])
     //main thread waits for tread1 to finish
     thread1.join();
     
-    //demonstrate the power and syntax of lambda function in c++
-    [](){   std::cout << "BYE" << std::endl;   };
+    //demonstrate the power and syntax of lambda function in C++
+    []()->void {   std::cout << "BYE" << std::endl;   };
     
     std::cout.flush();
     return 0;
