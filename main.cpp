@@ -11,8 +11,8 @@ int main(int argc, char* argv[])
 {
     std::thread thread1(function1);
     
-    //main thread waits for tread1 to finish
-    thread1.join();
+    //main thread detaches thread1 
+    thread1.detach();
     
     //demonstrate the power and syntax of lambda function in C++
     []()->void {   std::cout << "BYE" << std::endl;   };
