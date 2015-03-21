@@ -4,7 +4,7 @@
 void function1(void)
 {
     std::cout << "\nhello world I'm function1 in thread1 " << std::endl; 
-
+    std::cout.flush();
 }
 
 int main(int argc, char* argv[])
@@ -16,12 +16,12 @@ int main(int argc, char* argv[])
     
     for (int i = 0;  i <= 100;  i ++)
     {
-        std::cout << "main thread i = " << i << " "; 
+        std::cout << "MT = " << i << "."; 
     }     
 
     if (thread1.joinable() == true)
     {   
-        std::cout << "\nthread1 joining main thread" << std::endl;
+        std::cout << "\nthread1 joining main thread(MT) " << std::endl;
         thread1.join();
     }
 
