@@ -3,29 +3,30 @@
 
 void function1(void)
 {
-    std::cout << "hello world I'm function1" << std::endl; 
+    std::cout << "\nhello world I'm function1 in thread1 " << std::endl; 
 
 }
 
 int main(int argc, char* argv[])
 {
     int numCPUs = std::thread::hardware_concurrency();
-    std::cout << "number of CPUs = " << numCPUs << std::endl;
+    std::cout << "\nnumber of CPUs = " << numCPUs << std::endl;
     
     std::thread thread1(function1);
     
-    //main thread detaches thread1 
-    thread1.detach();
-    
-    //......
+    for (int i = 0;  i <= 100;  i ++)
+    {
+        std::cout << "main thread i = " << i << " "; 
+    }     
 
-    if (thread1.joinable())
-    { 
+    if (thread1.joinable() == true)
+    {   
+        std::cout << "\nthread1 joining main thread" << std::endl;
         thread1.join();
     }
 
     //demonstrate the power and syntax of lambda function in C++
-    auto myByeFunction = [](std::string paramPrintMessage)->void {   std::cout << "BYE " << paramPrintMessage << std::endl;   };
+    auto myByeFunction = [](std::string paramPrintMessage)->void {   std::cout << "\nBYE " << paramPrintMessage << std::endl;   };
     myByeFunction(" - this is end of the main thread");
     
     std::cout.flush();
