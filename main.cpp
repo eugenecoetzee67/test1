@@ -14,10 +14,23 @@ int main(int argc, char* argv[])
     
     std::thread thread1(function1);
     
-    for (int i = 0;  i <= 100;  i ++)
+    try
     {
-        std::cout << "MT = " << i << "."; 
-    }     
+        for (int i = 0;  i <= 100;  i ++)
+        {
+            std::cout << "MT = " << i << ".";
+            if (i == 60)
+            {
+                throw i;
+            } 
+        }     
+    } 
+    catch(...)
+    {
+        thread1.join();
+        throw;
+    }
+  
 
     if (thread1.joinable() == true)
     {   
