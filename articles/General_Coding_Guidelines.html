@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" dir="ltr">
+<head>
+<title>General Coding Guidelines - Devco Internal Wiki</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="MediaWiki 1.16.5" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/wiki/opensearch_desc.php" title="Devco Internal Wiki (en)" />
+<link rel="alternate" type="application/atom+xml" title="Devco Internal Wiki Atom feed" href="/wiki/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="common/shared.css?270" media="screen" />
+<link rel="stylesheet" href="common/commonPrint.css?270" media="print" />
+<link rel="stylesheet" href="common/main.css?270" media="screen" />
+<!--[if lt IE 5.5000]><link rel="stylesheet" href="common/IE50Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 5.5000]><link rel="stylesheet" href="common/IE55Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="common/IE60Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="common/IE70Fixes.css?270" media="screen" /><![endif]-->
+<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" media="print" />
+<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Monobook.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/wiki/index.php?title=-&amp;action=raw&amp;maxage=18000&amp;gen=css" />
+<script>
+var skin="monobook",
+stylepath="/wiki/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/wiki/index.php/$1",
+wgScriptPath="/wiki",
+wgScriptExtension=".php",
+wgScript="/wiki/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://devco-wiki.svc",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="General_Coding_Guidelines",
+wgTitle="General Coding Guidelines",
+wgAction="view",
+wgArticleId=67,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=23381,
+wgVersion="1.16.5",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "Devco Internal Wiki", "5": "Devco Internal Wiki talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk", "100": "Projects", "101": "Projects talk", "102": "Planning", "103": "Planning talk", "104": "Temp", "105": "Temp talk", "274": "Widget", "275": "Widget talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "devco_internal_wiki": 4, "devco_internal_wiki_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "projects": 100, "projects_talk": 101, "planning": 102, "planning_talk": 103, "temp": 104, "temp_talk": 105, "widget": 274, "widget_talk": 275, "image": 6, "image_talk": 7},
+wgSiteName="Devco Internal Wiki",
+wgCategories=[],
+wgRestrictionEdit=[],
+wgRestrictionMove=[];
+</script><script src="common/wikibits.js?270"></script>
+<script src="common/ajax.js?270"></script>
+<script src="/wiki/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook&amp;270"></script>
+
+</head>
+<body class="mediawiki ltr ns-0 ns-subject page-General_Coding_Guidelines skin-monobook">
+<div id="globalWrapper">
+<div id="column-content"><div id="content" >
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading">General Coding Guidelines</h1>
+	<div id="bodyContent">
+		<h3 id="siteSub">From Devco Internal Wiki</h3>
+		<div id="contentSub"></div>
+		<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#The_.22Do.27s.22"><span class="tocnumber">2</span> <span class="toctext">The "Do's"</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Follow_good_design_principles"><span class="tocnumber">2.1</span> <span class="toctext">Follow good design principles</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Use_test_driven_development_.28TDD.29"><span class="tocnumber">2.2</span> <span class="toctext">Use test driven development (TDD)</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#The_.22Don.27ts.22"><span class="tocnumber">3</span> <span class="toctext">The "Don'ts"</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Copy_and_paste"><span class="tocnumber">3.1</span> <span class="toctext">Copy and paste</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Previous_work_.22Must_be_right.22"><span class="tocnumber">3.2</span> <span class="toctext">Previous work "Must be right"</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#Banned_practices"><span class="tocnumber">3.3</span> <span class="toctext">Banned practices</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Related_Articles"><span class="tocnumber">4</span> <span class="toctext">Related Articles</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#References"><span class="tocnumber">5</span> <span class="toctext">References</span></a></li>
+</ul>
+</td></tr></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<h1> <span class="mw-headline" id="Introduction"> Introduction </span></h1>
+<p>This page contains general coding (and design) principles guidelines that should be adhered to across development languages and activities.  Some of the examples may be focused on specific languages, but this should not detract from the overriding principles.
+</p><p><br />
+</p>
+<h1> <span class="mw-headline" id="The_.22Do.27s.22"> The "Do's" </span></h1>
+<p>This section discusses principles and techniques that must be followed and are considered to be best practices.
+</p>
+<h2> <span class="mw-headline" id="Follow_good_design_principles"> Follow good design principles </span></h2>
+<ul><li> <b>General design principles</b> as discussed in <span style="color:gray">this article</span>.
+</li><li> <b>Object oriented design principles</b> as discussed in <span style="color:gray">this article</span>.
+</li></ul>
+<h2> <span class="mw-headline" id="Use_test_driven_development_.28TDD.29"> Use test driven development (<span class="glossary" title="Test Driven Development">TDD</span>) </span></h2>
+<p>Our development process follows a test-driven or test-first methodology.  This means that for every piece of code written, there should be unit test cases that test the code.  These tests should be written <i><b>before</b></i> the actual code is written.  The tests may be written (depending on the coding language), either in our perl test framework, or our C++ test framework.
+</p><p>You need to design your code in such a way that it is easy to write test cases.  This generally means that you need to ruthlessly evaluate all your code's dependencies and remove those that are not required.  Those that cannot be removed in this way, can often be removed by using Dependency Inversion<sup id="_ref-dip_0" class="reference"><a href="#_note-dip">[1]</a></sup>.
+</p><p>Often, however, you will inherit code that did not follow the <span class="glossary" title="Test Driven Development">TDD</span> practice.  This code is dangerous because there is no safety net (i.e. tests) to tell you whether or not your change has broken an invariant.  The <span style="color:gray">article on unit test conventions</span> provides more information regarding the standards and conventions for unit tests and how to deal with legacy code.
+</p>
+<h1> <span class="mw-headline" id="The_.22Don.27ts.22"> The "Don'ts" </span></h1>
+<p>This section discusses things that should not be done.
+</p>
+<h2> <span class="mw-headline" id="Copy_and_paste"> Copy and paste </span></h2>
+<p>Do not use copy-and-paste as a method of ruse.  Let me repeat that:
+<b><i>If you use copy-and-paste to reuse someone else's stuff in this department,</i></b>
+you will buy drinks for everyone every Friday for a month<b><i>.  Copy-and-paste</i></b>
+is the crudest form of reuse and results in multiple copies of the same thing.
+When it is code it also results in code bloat and makes it harder to fix
+bugs as these bugs need to be tracked down in every piece of copied code.
+</p><p>So what do you do if you find that someone else has something that you need and
+it <i>mostly</i> (or completely) does what you need it to do?
+</p>
+<ol><li> Track down the author of the module/function/class/document/artifact.
+</li><li> Between the 2 of you decide how the resource will be shared.
+</li><li> Implement any changes to the resource to make it reusable to both of you.
+</li><li> Modify, if necessary, any existing things that use the modified resource.
+</li><li> Put the shared resource in a place that makes it logically usable by both parties.
+</li></ol>
+<h2> <span class="mw-headline" id="Previous_work_.22Must_be_right.22"> Previous work "Must be right" </span></h2>
+<p>Just because something has been done in a particular way before, does not mean
+that it is a "standard" and must copied without questioning.  If you need to do
+something and you are shown an example of how it was previously done, then
+question whether the previous design was correct (especially if you think it
+doesn't make sense or is inadequate).  In many cases the person who did the work
+may have been under time pressure and did not have time to do it properly.
+Highlighting the issue may actually result in the person conceding that their
+original design was flawed and then fixing it, resulting in a better system for
+everyone.  Remember, if it doesn't make sense to you, then chances are, it won't
+make sense to someone else.  
+</p><p>If you are on the receiving end of the "why" question, make sure that you are
+convinced that you did it correctly when you did it.  If you come to the conclusion
+that it was correct, then document the reasoning so that the question may be
+answered easily the next time round.  If you conclude that it was wrong, then
+either fix the problem immediately, or log an improvement so that the issue is
+not forgotten.
+</p>
+<h2> <span class="mw-headline" id="Banned_practices"> Banned practices </span></h2>
+<p>The following practices are known to cause maintenance and other problems and must not be done without a very, very good reason:
+</p>
+<ul><li> <b>Global variables</b>.  Global variables introduce unexpected dependencies and make writing test cases especially hard.
+</li><li> <b>Singletons</b>.  Singletons are just glorified global variables and suffer the same problems as global variables.  They should be avoided unless something specifically requires it, in which case it should be an implementation detail and the singleton should not be referenced in application code.
+</li><li> <b>Clever code</b>.  Debugging is twice as hard as writing the code in the first place.  Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.
+</li></ul>
+<h1> <span class="mw-headline" id="Related_Articles"> Related Articles </span></h1>
+<ul><li> <span style="color:gray">General design guidelines</span>
+</li><li> <span style="color:gray">Object oriented design principles</span>
+</li><li> <span style="color:gray">Unit test conventions</span>
+</li></ul>
+<h1> <span class="mw-headline" id="References"> References </span></h1>
+<div class="references-small">
+<ol class="references"><li id="_note-dip"><a href="#_ref-dip_0">↑</a> <span style="color:gray">The Dependency Inversion Principle (PDF)</span></li></ol></div>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 84/1000000
+Post-expand include size: 91/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wikidb:pcache:idhash:67-0!1!0!!en!2!edit=0 and timestamp 20150309065746 -->
+<div class="printfooter">
+Retrieved from "<a href="http://devco-wiki.svc/wiki/index.php/General_Coding_Guidelines">http://devco-wiki.svc/wiki/index.php/General_Coding_Guidelines</a>"</div>
+		<div id='catlinks' class='catlinks catlinks-allhidden'></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				 
+				 
+				 
+				 
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(common/DEVCOlogo_small.png);" href="/wiki/index.php/Main_Page" title="Visit the main page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class='generated-sidebar portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-mainpage"><span style="color:gray">Main Page</span></li>
+				<li id="n-recentchanges"><span style="color:gray">Recent changes</span></li>
+				<li id="n-randompage"><span style="color:gray">Random page</span></li>
+				<li id="n-help"><a href="http://meta.wikimedia.org/wiki/Help:Contents" title="The place to find out">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/wiki/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input id="searchInput" title="Search Devco Internal Wiki" accesskey="f" type="search" name="search" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" title="Go to a page with this exact name if exists" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search the pages for this text" />
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><span style="color:gray">What links here</span></li>
+				<li id="t-recentchangeslinked"><span style="color:gray">Related changes</span></li>
+<li id="t-specialpages"><span style="color:gray">Special pages</span></li>
+				<li id="t-print">Permanent link</li>			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="common/images/poweredby_mediawiki_88x31.png" height="31" width="88" alt="Powered by MediaWiki" /></a></div>
+	<ul id="f-list">
+		<li id="lastmod"> This page was last modified on 7 September 2010, at 10:18.</li>
+		<li id="viewcount">This page has been accessed 239 times.</li>
+		<li id="privacy"><span style="color:gray">Privacy policy</span></li>
+		<li id="about"><span style="color:gray">About Devco Internal Wiki</span></li>
+		<li id="disclaimer"><span style="color:gray">Disclaimers</span></li>
+	</ul>
+</div>
+</div>
+
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+<!-- Served in 0.060 secs. --></body></html>

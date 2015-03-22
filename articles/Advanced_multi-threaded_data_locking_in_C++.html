@@ -1,0 +1,395 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" dir="ltr">
+<head>
+<title>Advanced multi-threaded data locking in C++ - Devco Internal Wiki</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="MediaWiki 1.16.5" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/wiki/opensearch_desc.php" title="Devco Internal Wiki (en)" />
+<link rel="alternate" type="application/atom+xml" title="Devco Internal Wiki Atom feed" href="/wiki/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="common/shared.css?270" media="screen" />
+<link rel="stylesheet" href="common/commonPrint.css?270" media="print" />
+<link rel="stylesheet" href="common/main.css?270" media="screen" />
+<!--[if lt IE 5.5000]><link rel="stylesheet" href="common/IE50Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 5.5000]><link rel="stylesheet" href="common/IE55Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="common/IE60Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="common/IE70Fixes.css?270" media="screen" /><![endif]-->
+<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" media="print" />
+<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Monobook.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/wiki/index.php?title=-&amp;action=raw&amp;maxage=18000&amp;gen=css" />
+<script>
+var skin="monobook",
+stylepath="/wiki/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/wiki/index.php/$1",
+wgScriptPath="/wiki",
+wgScriptExtension=".php",
+wgScript="/wiki/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://devco-wiki.svc",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="Advanced_multi-threaded_data_locking_in_C++",
+wgTitle="Advanced multi-threaded data locking in C++",
+wgAction="view",
+wgArticleId=1350,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=23391,
+wgVersion="1.16.5",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "Devco Internal Wiki", "5": "Devco Internal Wiki talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk", "100": "Projects", "101": "Projects talk", "102": "Planning", "103": "Planning talk", "104": "Temp", "105": "Temp talk", "274": "Widget", "275": "Widget talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "devco_internal_wiki": 4, "devco_internal_wiki_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "projects": 100, "projects_talk": 101, "planning": 102, "planning_talk": 103, "temp": 104, "temp_talk": 105, "widget": 274, "widget_talk": 275, "image": 6, "image_talk": 7},
+wgSiteName="Devco Internal Wiki",
+wgCategories=[],
+wgRestrictionEdit=[],
+wgRestrictionMove=[];
+</script><script src="common/wikibits.js?270"></script>
+<script src="common/ajax.js?270"></script>
+<script src="/wiki/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook&amp;270"></script>
+
+</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Advanced_multi-threaded_data_locking_in_C skin-monobook">
+<div id="globalWrapper">
+<div id="column-content"><div id="content" >
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading">Advanced multi-threaded data locking in C++</h1>
+	<div id="bodyContent">
+		<h3 id="siteSub">From Devco Internal Wiki</h3>
+		<div id="contentSub"></div>
+		<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<p>This article describes more advanced data locking techniques and concepts than that presents in <a href="C%2B%2B_multithreaded_programming_guidelines.html" title="C++ multithreaded programming guidelines">C++ multithreaded programming guidelines</a>.
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Objectives"><span class="tocnumber">2</span> <span class="toctext">Objectives</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Current_patterns"><span class="tocnumber">3</span> <span class="toctext">Current patterns</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Synchronised_data"><span class="tocnumber">4</span> <span class="toctext">Synchronised data</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Read-only_data"><span class="tocnumber">5</span> <span class="toctext">Read-only data</span></a>
+<ul>
+<li class="toclevel-2 tocsection-6"><a href="#Example"><span class="tocnumber">5.1</span> <span class="toctext">Example</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Problems"><span class="tocnumber">5.2</span> <span class="toctext">Problems</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="#ReadOnly_template"><span class="tocnumber">5.3</span> <span class="toctext">ReadOnly template</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-9"><a href="#Single-threaded_data"><span class="tocnumber">6</span> <span class="toctext">Single-threaded data</span></a>
+<ul>
+<li class="toclevel-2 tocsection-10"><a href="#Example_2"><span class="tocnumber">6.1</span> <span class="toctext">Example</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#Related_Articles"><span class="tocnumber">7</span> <span class="toctext">Related Articles</span></a></li>
+</ul>
+</td></tr></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<p><br />
+</p>
+<h1> <span class="mw-headline" id="Introduction"> Introduction </span></h1>
+<p>The article, <a href="C%2B%2B_multithreaded_programming_guidelines.html" title="C++ multithreaded programming guidelines">C++ multithreaded programming guidelines</a>, discusses the use of the <tt>volatile</tt> modifier and <tt>LockPtr</tt> template class help the developer detect unprotected (unsynchronised) access to data at compile time.  It, however, only discusses a single data locking strategy: Using a mutex or critical section to protect your data that is accessed by multiple threads.  In the real world, things do not always fall so neatly into this single paradigm.
+</p><p>This article discusses alternative techniques and data access patterns that may you may need to use in the course of multi-threaded application development.  It definitely does not cover all techniques or patterns, so we expect to extend this article as new patterns are discovered and implemented.
+</p>
+<h1> <span class="mw-headline" id="Objectives"> Objectives </span></h1>
+<p>Because multi-threaded application design, development and debugging can be hard and there is not much tool support to ensure that we do things correctly, we need to be very clear in our approach to solving multi-threaded problems.
+</p><p>The objective of this article and its related articles is to set out a set of techniques and patterns by which all developers approach multi-threaded development.  These techniques and patterns need to be backed up by library code that helps the developer to do things correctly.  By restricting ourselves to a limited set of known techniques and patterns, we can gain substantial benefits in the following areas:
+</p>
+<ul><li> <b>Knowledge of application semantics.</b>
+</li><li> <b>Debugging.</b> The library code for the "known patterns" includes extra debugging code to ensure that things are done correctly.
+</li><li> <b>Code reviews.</b> Multi-threaded code becomes standardised and reviewers can know what to expect when reviewing other people's code.
+</li></ul>
+<h1> <span class="mw-headline" id="Current_patterns"> Current patterns </span></h1>
+<p>A list of current patterns is listed below with links to their discussion:
+</p>
+<ul><li> <a href="#Synchronised_data"><b>Synchronised data.</b></a> 
+</li><li> <a href="#Read-only_data"><b>Read-only data.</b></a>
+</li><li> <a href="#Single-threaded_data"><b>Data accessed only by one thread at a time.</b></a>
+</li></ul>
+<h1> <span class="mw-headline" id="Synchronised_data"> Synchronised data </span></h1>
+<p>In this pattern, data access is protected by a mutex.  The mutex is locked using <tt>LockPtr</tt> before any access on the data is attempted.  This pattern should be considered as the default multi-threaded data access pattern unless something more advanced is required.  This is the pattern discussed in <a href="C%2B%2B_multithreaded_programming_guidelines.html" title="C++ multithreaded programming guidelines">C++ multithreaded programming guidelines</a>.  See <a href="C%2B%2B_multithreaded_programming_guidelines.html" title="C++ multithreaded programming guidelines">that</a> article for more details.
+</p><p>In <a href="C%2B%2B_multithreaded_programming_guidelines.html" title="C++ multithreaded programming guidelines">C++ multithreaded programming guidelines</a>, it is suggested that data be partitioned into data groups, each protected by a mutex as shown below.
+</p>
+<pre>
+class Example
+{
+private:
+    class PropertyContainer:
+        public XPCriticalSection,
+        public std::map&lt;std::string, std::string&gt;
+    {
+    } properties;
+
+    struct Options: public XPCriticalSection
+    {
+        int minimum;
+        int maximum;
+        int defaultValue;
+    } options;
+};
+</pre>
+<p><br />
+The data partitioning technique is still considered to be the correct approach, however, a new template class - <tt>Lockable</tt> - is now available to help automate the the boilerplate code used above.  Using the <tt>Lockable</tt> template, the above code can be rewritten as follows:
+</p>
+<pre>
+class Example
+{
+private:
+    typedef std::map&lt;std::string, std::string&gt; PropertyContainer;
+    struct Options
+    {
+        int minimum;
+        int maximum;
+        int defaultValue;
+    };
+
+private:
+    Lockable&lt;PropertyContainer&gt; properties;
+    Lockable&lt;Options&gt; options;
+};
+</pre>
+<p>As before, you would use the <tt>LockPtr</tt> template class to gain access to the underlying data in a thread-safe manner.
+</p><p><br />
+The <tt>Lockable</tt> template also provides a second template parameter that allows you to select the synchronisation class that you would like to use to protect the data.  The default value for this parameter is <tt>XPCriticalSection</tt>, but you could also use a <tt>XPSpinLock</tt>, <tt>XPMutex</tt>, <tt>XPReadWriteLock</tt> or any other synchronisation object compatible with <tt>LockPtr</tt>.
+</p>
+<h1> <span class="mw-headline" id="Read-only_data"> Read-only data </span></h1>
+<p>The problem with the <a href="#Synchronised_data">synchronised data</a> access pattern discussed above is that any access to the underlying object needs to occur under the protection of the associated mutex.  Often this is a performance hit that is not required because the object never changes after it has been initialised.  Therefore access to the object is always thread-safe as no threads modify the object.  This is where the read-only data access pattern becomes useful.
+</p>
+<h2> <span class="mw-headline" id="Example"> Example </span></h2>
+<p>Consider the following example:
+</p>
+<pre>
+class Example
+{
+public:
+    Example()
+    {
+        Initialise();
+    }
+
+    void Initialise()
+    {
+        this-&gt;properties[&quot;p1&quot;] = &quot;v1&quot;;
+        ...
+    }
+
+    void DoSomething() volatile
+    {
+        this-&gt;properties[&quot;p2&quot;] = &quot;v2&quot;; // (1)
+
+        DoAnotherThing (this-&gt;properties.begin()); // (2)
+    }
+
+    void DoAnotherThing (PropertyContainer::const_iterator property) volatile;
+
+private:
+    typedef std::map&lt;std::string, std::string&gt; PropertyContainer;
+
+private:
+    PropertyContainer properties;
+};
+</pre>
+<p>In the above example, we have a <tt>properties</tt> object that we initialise before we multiple threads are able to access the object (remember that a non-<tt>volatile</tt> method in a class that has <tt>volatile</tt> methods requires that the programmer ensure that only a single thread is active in the object when the method is called.  See <a href="C%2B%2B_multithreaded_programming_guidelines.html#Reading_code" title="C++ multithreaded programming guidelines">here</a>.)  For this reason, the <tt>properties</tt> object is not protected by a mutex as it <i>should</i> not change after initialisation.
+</p>
+<h2> <span class="mw-headline" id="Problems"> Problems </span></h2>
+<p>There are a couple of problems with above code:
+</p>
+<ul><li> When reading the code, there are no clues to the reader that <tt>properties</tt> does not get changed after initialisation and is therefore safe to be used in <tt>DoSomething()</tt>.  Of course, comments would help, but where would you place them: In <tt>DoSomething()</tt> or at the point where <tt>properties</tt> is declared or both (and everywhere else where <tt>properties</tt> is accessed).
+</li><li> <tt>DoSomething()</tt> does not compile as it attempts to access <tt>properties</tt> which non-<tt>volatile</tt> at (1) and (2).
+</li><li> Assuming we fixed the above compilation problem using a cast or, better, <tt>GUARANTEED_THREAD_SAFE</tt> and we then decide to change the semantics of the use of <tt>properties</tt> so that we <i>are</i> allowed to modify the object in different threads.  In that case, our only option is to search the source code and make changes manually - we get no help from the compiler (which is something that we'd really like).
+</li></ul>
+<h2> <span class="mw-headline" id="ReadOnly_template"> ReadOnly template </span></h2>
+<p>This is where the <tt>ReadOnly</tt> template class comes to the rescue.  It ensures that:
+</p>
+<ul><li> Operations like (1) are disallowed at compile time for the correct reason (cannot change the data).
+</li><li> Operations like (2) allowed without a <tt>const_cast</tt> or resorting to <tt>GUARANTEED_THREAD_SAFE</tt>.
+</li><li> The original developer's intentions for the <tt>properties</tt> object are made visible in code rather than comments, and at the correct place: where the object is defined.
+</li><li> If we change the access semantics of <tt>properties</tt> so that we can modify it safely from multiple threads (e.g. by using <tt>Lockable</tt>, the compiler will point out all places where <tt>properties</tt> is accessed incorrectly).
+</li></ul>
+<p><br />
+Using the <tt>ReadOnly</tt> template, the above example changes slightly.
+</p>
+<pre>
+class Example
+{
+public:
+    Example()
+    {
+        Initialise();
+    }
+
+    void Initialise()
+    {
+        (*this-&gt;properties)[&quot;p1&quot;] = &quot;v1&quot;; // (1)
+        ...
+
+        // Prevent write-access to the object from this point onward.
+        this-&gt;properties.SetReadOnly(); // (2)
+    }
+
+    void DoSomething() volatile
+    {
+        // This will not compile
+        (*this-&gt;properties)[&quot;p2&quot;] = &quot;v2&quot;; // (3)
+
+        DoAnotherThing (this-&gt;properties-&gt;begin()); // (4)
+    }
+
+    void DoAnotherThing (PropertyContainer::const_iterator property) volatile;
+
+private:
+    typedef std::map&lt;std::string, std::string&gt; PropertyContainer;
+
+private:
+    ReadOnly&lt;PropertyContainer&gt; properties; // (5)
+};
+</pre>
+<p>The solution is to wrap the <tt>PropertyContainer</tt> declaration with the <tt>ReadOnly</tt> template as shown in (5).  Once this is done, all access to the underlying <tt>PropertyContainer</tt> goes is protected by the C++ dereference operators i.e. <tt>properties</tt> needs to be dereferenced to gain access to the underlying object, as shown in (1), (3) and (4).
+</p><p>Within <tt>volatile</tt> methods, only <tt>const</tt> access is allowed on the underlying object, which means that code like (3) will fail to compile, however, code like (4) will succeed.
+</p><p>It is possible to indicate from which point onwards on object becomes read-only as shown by (2).  If an attempt is made to modify an object after a call to <tt>SetReadOnly</tt>, then the access will cause an assertion (note that modifications are only possible in non-<tt>const</tt> methods).  This is mostly useful for debugging, but also provides a visual clue to readers of the code as to the point from which an object may no longer change.
+</p><p>The <tt>ReadOnly</tt> class provides a second template parameter that may be used to determine when and how the class becomes read-only.  The supported options are:
+</p>
+<ul><li> <b>READONLY_AFTER_CONSTRUCTION</b>: The object becomes read-only immediately after construction.
+</li><li> <b>READONLY_AFTER_WRITE</b>: The object becomes read-only after the first mutable access to the object.
+</li><li> <b>READONLY_AFTER_SET</b>: The object only becomes read-only after a call to SetReadOnly().  This is the default.
+</li></ul>
+<h1> <span class="mw-headline" id="Single-threaded_data"> Single-threaded data </span></h1>
+<p>The single-threaded data access pattern is a specialisation of the <a href="#Read-only_data">read-only data access pattern</a>.  It also attempts to deal with data that strictly does not need to be synchronised as required by the <a href="#Synchronised_data">synchronised data access pattern</a>.  Under this pattern, access to an object is by a single thread.
+</p><p>This functionality is provided by the <tt>OneThread</tt> template class.  In order to be useful, the object wrapped by <tt>OneThread</tt> should only be accessed in a single thread (even though it is possible to release the object from its associated thread and then use the object in another).  If an access pattern other than this is required, then the <tt>ReadOnly</tt> class or <tt>Lockable</tt> class, used in conjunction with a <tt>XPReadWriteLock</tt>, may be better suited to the problem.
+</p><p>The <tt>OneThread</tt> template class provides debug protection by asserting whenever a thread attempts to access it's underlying object and that thread is not associated with the object.  As with the <tt>ReadOnly</tt> template class, a thread is implicitly associated with the object when it attempts to write to the underlying object.
+</p>
+<h2> <span class="mw-headline" id="Example_2"> Example </span></h2>
+<p>The following code shows a typical usage for the <tt>OneThread</tt> template class:
+</p>
+<pre>
+class Example: public XPThread
+{
+public:
+    Example():
+        constant (0) // No association is setup during construction
+    {
+    }
+
+    int Execute()
+    {
+        // Associate 'constant' with this thread and make
+        // it unavailable for read or write access by another thread.
+        this-&gt;constant = 10;
+
+        return 0;
+    }
+
+    // This method gets executed by another thread
+    int AccessConstantFromAnotherThread() volatile
+    {
+        // This will result in an assertion as the object is associated with another thread.
+        this-&gt;constant = 100;
+
+        // And so will this (assuming the above line did not execute)
+        return *this-&gt;constant;
+    }
+
+private:
+    OneThread&lt;int&gt; constant;
+};
+</pre>
+<h1> <span class="mw-headline" id="Related_Articles"> Related Articles </span></h1>
+<ul><li> <a href="C%2B%2B_multithreaded_programming_guidelines.html" title="C++ multithreaded programming guidelines">C++ multithreaded programming guidelines</a>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 88/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wikidb:pcache:idhash:1350-0!1!0!!en!2!edit=0 and timestamp 20150309064137 -->
+<div class="printfooter">
+Retrieved from "<a href="http://devco-wiki.svc/wiki/index.php/Advanced_multi-threaded_data_locking_in_C%2B%2B">http://devco-wiki.svc/wiki/index.php/Advanced_multi-threaded_data_locking_in_C%2B%2B</a>"</div>
+		<div id='catlinks' class='catlinks catlinks-allhidden'></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				 
+				 
+				 
+				 
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(common/DEVCOlogo_small.png);" href="/wiki/index.php/Main_Page" title="Visit the main page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class='generated-sidebar portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-mainpage"><span style="color:gray">Main Page</span></li>
+				<li id="n-recentchanges"><span style="color:gray">Recent changes</span></li>
+				<li id="n-randompage"><span style="color:gray">Random page</span></li>
+				<li id="n-help"><a href="http://meta.wikimedia.org/wiki/Help:Contents" title="The place to find out">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/wiki/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input id="searchInput" title="Search Devco Internal Wiki" accesskey="f" type="search" name="search" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" title="Go to a page with this exact name if exists" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search the pages for this text" />
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><span style="color:gray">What links here</span></li>
+				<li id="t-recentchangeslinked"><span style="color:gray">Related changes</span></li>
+<li id="t-specialpages"><span style="color:gray">Special pages</span></li>
+				<li id="t-print">Permanent link</li>			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="common/images/poweredby_mediawiki_88x31.png" height="31" width="88" alt="Powered by MediaWiki" /></a></div>
+	<ul id="f-list">
+		<li id="lastmod"> This page was last modified on 7 September 2010, at 15:35.</li>
+		<li id="viewcount">This page has been accessed 51 times.</li>
+		<li id="privacy"><span style="color:gray">Privacy policy</span></li>
+		<li id="about"><span style="color:gray">About Devco Internal Wiki</span></li>
+		<li id="disclaimer"><span style="color:gray">Disclaimers</span></li>
+	</ul>
+</div>
+</div>
+
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+<!-- Served in 0.026 secs. --></body></html>

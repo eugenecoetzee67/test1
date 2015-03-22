@@ -1,0 +1,496 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" dir="ltr">
+<head>
+<title>C++ Code Conventions - Devco Internal Wiki</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="MediaWiki 1.16.5" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/wiki/opensearch_desc.php" title="Devco Internal Wiki (en)" />
+<link rel="alternate" type="application/atom+xml" title="Devco Internal Wiki Atom feed" href="/wiki/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="common/shared.css?270" media="screen" />
+<link rel="stylesheet" href="common/commonPrint.css?270" media="print" />
+<link rel="stylesheet" href="common/main.css?270" media="screen" />
+<!--[if lt IE 5.5000]><link rel="stylesheet" href="common/IE50Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 5.5000]><link rel="stylesheet" href="common/IE55Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="common/IE60Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="common/IE70Fixes.css?270" media="screen" /><![endif]-->
+<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" media="print" />
+<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Monobook.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/wiki/index.php?title=-&amp;action=raw&amp;maxage=18000&amp;gen=css" />
+<script>
+var skin="monobook",
+stylepath="/wiki/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/wiki/index.php/$1",
+wgScriptPath="/wiki",
+wgScriptExtension=".php",
+wgScript="/wiki/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://devco-wiki.svc",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="C++_Code_Conventions",
+wgTitle="C++ Code Conventions",
+wgAction="view",
+wgArticleId=71,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=42276,
+wgVersion="1.16.5",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "Devco Internal Wiki", "5": "Devco Internal Wiki talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk", "100": "Projects", "101": "Projects talk", "102": "Planning", "103": "Planning talk", "104": "Temp", "105": "Temp talk", "274": "Widget", "275": "Widget talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "devco_internal_wiki": 4, "devco_internal_wiki_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "projects": 100, "projects_talk": 101, "planning": 102, "planning_talk": 103, "temp": 104, "temp_talk": 105, "widget": 274, "widget_talk": 275, "image": 6, "image_talk": 7},
+wgSiteName="Devco Internal Wiki",
+wgCategories=[],
+wgRestrictionEdit=[],
+wgRestrictionMove=[];
+</script><script src="common/wikibits.js?270"></script>
+<script src="common/ajax.js?270"></script>
+<script src="/wiki/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook&amp;270"></script>
+
+</head>
+<body class="mediawiki ltr ns-0 ns-subject page-C_Code_Conventions skin-monobook">
+<div id="globalWrapper">
+<div id="column-content"><div id="content" >
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading">C++ Code Conventions</h1>
+	<div id="bodyContent">
+		<h3 id="siteSub">From Devco Internal Wiki</h3>
+		<div id="contentSub"></div>
+		<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<table style="" class="metadata plainlinks ambox ambox-content">
+<tr>
+<td class="ambox-image">
+<div style="width:52px;"> <span style="color:gray"><img alt="Emblem-important.svg" src="images/thumb/Emblem-important.svg/40px-Emblem-important.svg.png" width="40" height="40" /></span></div></td>
+<td class="ambox-text"><b>The following conventions should be followed in the absence of a compelling reason to do otherwise</b></td>
+</table>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#General_Conventions"><span class="tocnumber">2</span> <span class="toctext">General Conventions</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Exceptions"><span class="tocnumber">3</span> <span class="toctext">Exceptions</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#C.2B.2B_Specific"><span class="tocnumber">4</span> <span class="toctext">C++ Specific</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Guidelines"><span class="tocnumber">4.1</span> <span class="toctext">Guidelines</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="#General"><span class="tocnumber">4.1.1</span> <span class="toctext">General</span></a></li>
+<li class="toclevel-3 tocsection-7"><a href="#Multithreaded_programming"><span class="tocnumber">4.1.2</span> <span class="toctext">Multithreaded programming</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="#Using_exceptions"><span class="tocnumber">4.1.3</span> <span class="toctext">Using exceptions</span></a>
+<ul>
+<li class="toclevel-4 tocsection-9"><a href="#Rules"><span class="tocnumber">4.1.3.1</span> <span class="toctext">Rules</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-10"><a href="#Standards"><span class="tocnumber">4.2</span> <span class="toctext">Standards</span></a>
+<ul>
+<li class="toclevel-3 tocsection-11"><a href="#Code_templates"><span class="tocnumber">4.2.1</span> <span class="toctext">Code templates</span></a></li>
+<li class="toclevel-3 tocsection-12"><a href="#Code_standard"><span class="tocnumber">4.2.2</span> <span class="toctext">Code standard</span></a></li>
+<li class="toclevel-3 tocsection-13"><a href="#Code_style"><span class="tocnumber">4.2.3</span> <span class="toctext">Code style</span></a>
+<ul>
+<li class="toclevel-4 tocsection-14"><a href="#if_.2F_else_statements"><span class="tocnumber">4.2.3.1</span> <span class="toctext">if / else statements</span></a>
+<ul>
+<li class="toclevel-5 tocsection-15"><a href="#Examples"><span class="tocnumber">4.2.3.1.1</span> <span class="toctext">Examples</span></a></li>
+<li class="toclevel-5 tocsection-16"><a href="#Discussion"><span class="tocnumber">4.2.3.1.2</span> <span class="toctext">Discussion</span></a></li>
+</ul>
+</li>
+<li class="toclevel-4 tocsection-17"><a href="#for_statements"><span class="tocnumber">4.2.3.2</span> <span class="toctext">for statements</span></a>
+<ul>
+<li class="toclevel-5 tocsection-18"><a href="#Examples_2"><span class="tocnumber">4.2.3.2.1</span> <span class="toctext">Examples</span></a></li>
+<li class="toclevel-5 tocsection-19"><a href="#Discussion_2"><span class="tocnumber">4.2.3.2.2</span> <span class="toctext">Discussion</span></a></li>
+</ul>
+</li>
+<li class="toclevel-4 tocsection-20"><a href="#switch_statements"><span class="tocnumber">4.2.3.3</span> <span class="toctext">switch statements</span></a>
+<ul>
+<li class="toclevel-5 tocsection-21"><a href="#Examples_3"><span class="tocnumber">4.2.3.3.1</span> <span class="toctext">Examples</span></a></li>
+<li class="toclevel-5 tocsection-22"><a href="#Discussion_3"><span class="tocnumber">4.2.3.3.2</span> <span class="toctext">Discussion</span></a></li>
+</ul>
+</li>
+<li class="toclevel-4 tocsection-23"><a href="#Enumerations"><span class="tocnumber">4.2.3.4</span> <span class="toctext">Enumerations</span></a>
+<ul>
+<li class="toclevel-5 tocsection-24"><a href="#Examples_4"><span class="tocnumber">4.2.3.4.1</span> <span class="toctext">Examples</span></a></li>
+<li class="toclevel-5 tocsection-25"><a href="#Documentation"><span class="tocnumber">4.2.3.4.2</span> <span class="toctext">Documentation</span></a></li>
+</ul>
+</li>
+<li class="toclevel-4 tocsection-26"><a href="#Comments"><span class="tocnumber">4.2.3.5</span> <span class="toctext">Comments</span></a>
+<ul>
+<li class="toclevel-5 tocsection-27"><a href="#Examples_5"><span class="tocnumber">4.2.3.5.1</span> <span class="toctext">Examples</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-28"><a href="#Test_cases"><span class="tocnumber">4.2.4</span> <span class="toctext">Test cases</span></a></li>
+<li class="toclevel-3 tocsection-29"><a href="#Other_topics"><span class="tocnumber">4.2.5</span> <span class="toctext">Other topics</span></a>
+<ul>
+<li class="toclevel-4 tocsection-30"><a href="#Namespaces"><span class="tocnumber">4.2.5.1</span> <span class="toctext">Namespaces</span></a></li>
+<li class="toclevel-4 tocsection-31"><a href="#Bit_masks"><span class="tocnumber">4.2.5.2</span> <span class="toctext">Bit masks</span></a></li>
+<li class="toclevel-4 tocsection-32"><a href="#Null-terminated_strings_and_buffers"><span class="tocnumber">4.2.5.3</span> <span class="toctext">Null-terminated strings and buffers</span></a></li>
+</ul>
+</li>
+<li class="toclevel-3 tocsection-33"><a href="#Orphanage"><span class="tocnumber">4.2.6</span> <span class="toctext">Orphanage</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-34"><a href="#Related_articles"><span class="tocnumber">5</span> <span class="toctext">Related articles</span></a></li>
+</ul>
+</td></tr></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<p><br />
+</p>
+<h1> <span class="mw-headline" id="Introduction"> Introduction </span></h1>
+<p>This article describes the coding standards for C++ that have currently been defined.
+</p>
+<h1> <span class="mw-headline" id="General_Conventions"> General Conventions </span></h1>
+<p>The following conventions and standards also apply to C++:
+</p>
+<ul><li> <span style="color:gray">General Naming Conventions</span>
+</li><li> <span style="color:gray">Formatting Conventions</span>
+</li><li> <span style="color:gray">General Coding Guidelines</span>
+</li><li> <span style="color:gray">Unit test conventions</span>
+</li></ul>
+<h1> <span class="mw-headline" id="Exceptions"> Exceptions </span></h1>
+<p>Function, method and class names may ignore the specifications in <span style="color:gray">General Naming Conventions</span> under the following circumstances:
+</p>
+<ul><li> When functionality is provided that is intended to appear as if it is intrinsic to C++, then it should follow the conventions of the Standard Template Library (STL), or base C++ conventions:  Examples are:
+<ul><li> Another type of "cast" operator e.g. <tt>convert_cast&lt;&gt;()</tt>.
+</li><li> Emulation of new compiler functionality not currently support by the compilers in use e.g. <tt>nullptr</tt> or <tt>std::move()</tt>
+</li><li> The "<tt>super</tt>" typedef indicating the base class of a particular class.
+</li></ul>
+</li><li> The function, method or class is intended to be used in an STL context i.e. it is an STL method or function name (such as <tt>begin()</tt>) or it is an STL class name (such as <tt>iterator</tt>).
+</li></ul>
+<h1> <span class="mw-headline" id="C.2B.2B_Specific"> C++ Specific </span></h1>
+<h2> <span class="mw-headline" id="Guidelines"> Guidelines </span></h2>
+<h3> <span class="mw-headline" id="General"> General </span></h3>
+<ul><li> <span style="color:gray">Using pointers and references in C++</span>
+</li></ul>
+<h3> <span class="mw-headline" id="Multithreaded_programming"> Multithreaded programming </span></h3>
+<ul><li> <span style="color:gray">C++ multithreaded programming guidelines</span> discusses the use of <tt>volatile</tt> and <tt>LockPtr</tt> when writing and reading multithreaded applications.
+</li></ul>
+<h3> <span class="mw-headline" id="Using_exceptions"> Using exceptions </span></h3>
+<p>Exceptions should only be used to convey "exceptional" errors (obviously).  However, what is "exceptional" depends in many cases on the context.  It depends on both the reality of how the errors will occur, as well as the programming model that users of the code will expect.
+</p><p>For example, in a socket class it is very likely that a connection may be broken whilst reading or writing from the socket.  Should the socket class throw an exception in this case?  The answer is: it depends.  To figure out what to do, we need to consider how the class will be used.
+</p><p>In most cases, the developer using the class wants to deal with the socket as if the socket is working properly - he does not necessarily want to check that every socket operation succeeds or fails.  And, in practice, most socket operations will actually succeed.  Also once a socket connection has been broken, the socket needs to be reinitialised before it can be used (control needs to go back to the user's socket initialisation code which, most likely, will not be part of the send or receive).  In this case, it does seem to make sense to use exceptions to indicate that a connection was broken, even though it was fairly easy to anticipate.
+</p><p>Below are a couple of rules to help determine when and how to use exceptions.
+</p>
+<h4> <span class="mw-headline" id="Rules"> Rules </span></h4>
+<ul><li> <b>Try to find a solution that does not require exceptions.</b>  The use of exceptions should only be used in those cases where it really makes sense to use them.  An example where exceptions should be considered is where method calls check for an error and then return the error to the calling method.  If the stack depth is quite large, then the use of exceptions may actually simplify code.
+</li><li> <b>"<tt>catch (...)</tt>" must always rethrow the exception or terminate the application.</b>  The reason is because "<tt>catch (...)</tt>" effectively hides issues that may actually be bugs.  For example, under MSVC 6, access violations are caught by "<tt>catch (...)</tt>".  Therefore, if the exception is suppressed (i.e. not rethrown), then you may be leaving your application in a very dangerous state and only have the issue show up somewhere else.
+</li><li> <b>Exceptions should only be used for cases where it is unlikely that the error will occur.</b>  I.e. exceptions should not be used for code paths that occur regularly.
+</li><li> <b>Exceptions should not be used for expected errors.</b>  If you can anticipate the error, you should probably not be using an exception to convey the error.  However, it is still possible to anticipate infrequent errors, so a judgement call is required.
+</li></ul>
+<h2> <span class="mw-headline" id="Standards"> Standards </span></h2>
+<h3> <span class="mw-headline" id="Code_templates"> Code templates </span></h3>
+<ul><li> <span style="color:gray">C++ header file template</span>.  This file should be used as a template when creating header files.
+</li><li> <span style="color:gray">C++ implementation file template</span>.  This file should be used as a template when creating implementation files.
+</li><li> <span style="color:gray">C++ test suite implementation file template</span>.  This file should be used as a template when creating a test suite.
+</li></ul>
+<h3> <span class="mw-headline" id="Code_standard"> Code standard </span></h3>
+<p>The coding standard is currently only available as a Microsoft Word document, but will eventually be fully translated to a wiki article.  Additions to this coding standard should be made in this section and not in the Word document.
+</p>
+<ul><li> <span style="color:gray">C++ Coding Standard (Word Document)</span>.  In future this document will be made available natively within this article.  Where appropriate, as sections are moved over, sections below may indicate that they supersede the contents of the word document.
+</li><li> See the section below for new information or changes to the descriptions provides in the word document.
+</li></ul>
+<h3> <span class="mw-headline" id="Code_style"> Code style </span></h3>
+<h4> <span class="mw-headline" id="if_.2F_else_statements"> if / else statements </span></h4>
+<p><span style="color:red">This section supersedes the sections on "if" and "else" in <span style="color:gray">C++ Coding Standard</span></span>
+</p>
+<h5> <span class="mw-headline" id="Examples"> Examples </span></h5>
+<pre>// if statement format
+if (condition)
+{
+    // Some code
+}
+</pre>
+<pre>// if/else statement format
+if (condition)
+{
+    // Some code
+}
+else
+{
+    // Other code
+}
+</pre>
+<pre>// if/else if/else statement format
+if (condition1)
+{
+    // Some code
+}
+else if (condition2)
+{
+    // More code
+}
+else
+{
+    // Other code
+}
+</pre>
+<h5> <span class="mw-headline" id="Discussion"> Discussion </span></h5>
+<ul><li> Braces are aligned under the <tt>if</tt> or <tt>else</tt> keywords.
+</li><li> Braces are *NOT* optional.  They must always be used - even for "simple" one liners.
+</li><li> There is a single space between the "if" and the condition.
+</li><li> The condition has no leading or trailing spaces.
+</li><li> The condition should explicitly check for <tt>true</tt> or <tt>false</tt>, except if the condition is can clearly be read as boolean e.g.
+</li></ul>
+<pre> if (done) // No test against true/false required
+ if (CallSomeFunction() == false) // It isn't clear from the name that CallSomeFunction() actually returns a boolean.
+</pre>
+<h4> <span class="mw-headline" id="for_statements"> for statements </span></h4>
+<p><span style="color:red">This section supersedes the "for Statement" section in <span style="color:gray">C++ Coding Standard</span></span>
+</p>
+<h5> <span class="mw-headline" id="Examples_2"> Examples </span></h5>
+<pre>// for statement format
+for (declaration;  condition;  loop-expression))
+{
+    // Some code
+}
+</pre>
+<pre>// Simple integer for loop
+for (int i = 0;  i &lt; LOOP_COUNT;  ++i))
+{
+    // Some code
+}
+</pre>
+<pre>// 'STL' for loop with loop loop code on a new line
+for (Container::const_iterator
+    i = container.begin();  i&nbsp;!= container.end();  ++i))
+{
+    // Some code
+}
+</pre>
+<h5> <span class="mw-headline" id="Discussion_2"> Discussion </span></h5>
+<ul><li> Braces are aligned under the <tt>for</tt> keyword.
+</li><li> Braces are *NOT* optional.  They must always be used - even for "simple" one liners.
+</li><li> There are *2 spaces* between the declaration &amp; condition and the condition &amp; loop-expression
+</li><li> When the type of loop variable is long, place the loop description on a new line indented with an extra tab.  Do not put each of the loop components in different lines.
+</li></ul>
+<p><br />
+</p>
+<h4> <span class="mw-headline" id="switch_statements"> switch statements </span></h4>
+<p><span style="color:red">This section supersedes the "switch Statement" section in <span style="color:gray">C++ Coding Standard</span></span>
+</p>
+<h5> <span class="mw-headline" id="Examples_3"> Examples </span></h5>
+<pre>// Simple switch statement
+switch (variable)
+{
+    case A:
+        break;
+
+    case B:  // may use braces for local scoping
+    {
+        break;
+    }
+
+    case C:
+        break;
+
+    default:
+        break;
+}
+</pre>
+<h5> <span class="mw-headline" id="Discussion_3"> Discussion </span></h5>
+<ul><li> Braces are aligned under the <tt>switch</tt> keyword.
+</li><li> There is a single space between the <tt>switch</tt> and the condition.
+</li><li> The condition has no leading or trailing spaces.
+</li><li> Provide a <tt>case</tt> statement for all conditions or provide a <tt>default</tt>
+</li><li> If a <tt>case</tt> or <tt>default</tt> defines local variables then braces need to be aligned under the <tt>case</tt> or <tt>default</tt> keyword.
+</li></ul>
+<h4> <span class="mw-headline" id="Enumerations"> Enumerations </span></h4>
+<p><span style="color:red">This section supersedes the "Enum" section in <span style="color:gray">C++ Coding Standard</span></span>
+</p>
+<h5> <span class="mw-headline" id="Examples_4"> Examples </span></h5>
+<pre>struct Example
+{
+    /// Actions as specified in <a href="http://tools.ietf.org/html/rfc1894" class="external mw-magiclink-rfc">RFC 1894</a>
+    enum RecipientAction
+    {
+        raUnknown,     ///&lt; Could not be determined
+        raFailed,      ///&lt; Delivery failed
+        raDelayed,     ///&lt; Delivery has been delayed
+        raDelivered,   ///&lt; The mail was delivered
+        raRelayed,     ///&lt; The mail was relayed
+        raExpanded,    ///&lt; The mail was distributed to a distribution list
+    };
+};
+
+/// The different types of ReadOnly objects that may be created
+enum ReadOnlyTemplateModes
+{
+    /// The object becomes read-only immediately after construction.
+    READONLY_AFTER_CONSTRUCTION,
+
+    /// The object becomes read-only after the first mutable access to the object.
+    READONLY_AFTER_WRITE,
+
+    /// The object only becomes read-only after a call to ReadOnly::SetReadOnly().
+    READONLY_AFTER_SET
+};
+</pre>
+<p><br />
+Two forms of enumeration specification are allowed:
+</p>
+<ul><li> <b>Camel case, with a lower-case 2 character prefix</b>.  This form should be used within classes and should not be used when a global enumeration is created.
+<ul><li> <tt>Enum</tt>'s do not introduce a new scope i.e. the same constant name in 2 different <tt>enum</tt>'s (within the same  class, namespace or global scope) results in a name clash.  We use the 2 character prefix to avoid the name clash.
+</li><li> The 2 character prefix should be representative of the name of the <tt>enum</tt>.
+</li></ul>
+</li><li> <b>All capitals, using the same conventions as constants</b>.  This convention is suitable for globally defined <tt>enum</tt>'s as well as class-level <tt>enum</tt>.
+<ul><li> When used as a class-level <tt>enum</tt>, the <tt>enum</tt> may be anonymous, if it makes sense to do so.
+</li><li> This is the preferred form for class-level result codes.
+</li><li> Globally defined <tt>enum</tt>'s should be appropriately prefixed to avoid global name clashes.
+</li></ul>
+</li></ul>
+<h5> <span class="mw-headline" id="Documentation"> Documentation </span></h5>
+<p>As shown in the examples below, <tt>enum</tt>'s may be documented either on the same line (if the overall line length is short), or before each enumeration item.  If the second option is chosen, a blank(ish) line should precede next documentation/comment line.
+</p>
+<h4> <span class="mw-headline" id="Comments"> Comments </span></h4>
+<ul><li> <b>Use C++ style comments</b>.  This should always be done unless a source file is specifically targeting both C and C++.  The reason is to make debugging easier: If only C++ comments are used, the developer can temporarily use C style comments to comment out large sections of code without other C style comments interfering.
+</li><li> <b>Don't comment the obvious.</b>
+</li><li> <b>Describe the purpose of the code, not what it is doing.</b>  Comments that describe what code does tend to get out of sync with the code and then start creating confusion.
+</li><li> <b>Prefer to write comments on their own line.</b> This eases readability by separating the comment from the code.  It also provides more real estate to provide a deeper description (as opposed to comments on the same line of code).
+</li><li> <b>A new comment must follow a blank line.</b> This creates a visual separation between previous code and the comment.  If the previous line contained only an opening brace, then it is not necessary to precede the comment with a blank line.
+</li></ul>
+<h5> <span class="mw-headline" id="Examples_5"> Examples </span></h5>
+<pre>// Process input from the user until the user presses CTRL-C
+while (true) // Comments on the same line as code should be avoided
+{
+    // No blank line required before this line as we have a line with an opening brace
+
+    // For a new, unrelated topic use another blank line
+    ReadInputFromUser();
+}
+
+// Blank line required before this line
+</pre>
+<h3> <span class="mw-headline" id="Test_cases"> Test cases </span></h3>
+<p>The following conventions and apply test cases written in C++:
+</p>
+<ul><li> <span style="color:gray">Guide to writing unit tests in C++</span>
+</li></ul>
+<h3> <span class="mw-headline" id="Other_topics"> Other topics </span></h3>
+<h4> <span class="mw-headline" id="Namespaces"> Namespaces </span></h4>
+<ul><li> <b>All public code should be in the global namespace.</b>  For this reason, it is important to choose global names that are unlikely to clash with other global names.  It is, however, foreseeable that we may move place our code in the <tt>Striata</tt> namespace.  In that case, all library code will be moved to the <tt>Striata</tt> namespace.  Application code will not move.
+</li><li> <b>Use anonymous namespaces in .cpp modules.</b>  When constructing types or functions that are specific to a translation unit, place those types and functions into an anonymous namespace.
+</li><li> <b>Use 'package' namespaces for package-private code.</b>  It is often necessary to create types or functions that should not be known outside of a particular package, but are not local to a specific translation unit.  In this case, a 'package' namespace may be used.  The namespace name must be the same as the package name and then contain another namespace called <tt>detail</tt>.  For example, the package-private namespace for the <tt>utils</tt> package would be <tt>utils::detail</tt>.  If/when we implement the <tt>Striata</tt> namespace, this namespace will be part of the <tt>Striata</tt> namespace.
+</li></ul>
+<h4> <span class="mw-headline" id="Bit_masks"> Bit masks </span></h4>
+<p>The recommended way of handling enumerations and bit masks is described below.
+</p>
+<ul><li> Create an enumeration to represent each of the values in the bit mask.  Name the enumeration such that it is singular (not plural) and is representative of a single field in the enumeration (e.g. SearchField).
+</li><li> Create a typedef using the <tt>EnumBitField</tt> template class, defined in <tt>&lt;utils/enumbitfield.h&gt;</tt>, for your enumeration.  Name the type using the plural of the enumeration (e.g. SearchFields).
+</li><li> Whenever the bit mask is required then use the <tt>EnumBitField</tt> typedef.
+</li><li> Whenever a single value is required then use the enumeration.
+</li></ul>
+<h4> <span class="mw-headline" id="Null-terminated_strings_and_buffers"> Null-terminated strings and buffers </span></h4>
+<p>Null terminated strings and buffers related to storing those are large sources of bugs due to off-by-one errors when storing null terminated strings into incorrectly allocated buffers.  This section describes some conventions to try to avoid these problems, or at least make them identifiable during a code review.
+</p>
+<ul><li> <b>Try not to use null terminated strings</b>.  In many cases, you should be able to use std::string instead.  But if you're writing low-level code that has to deal at with null-terminated strings, then follow the conventions below.
+</li><li> <b>Always pass the buffer size</b>.  When passing a buffer to a function than fills in a null-terminated string, pass an extra (size_t) parameter that represents the size of the buffer.  The size of the buffer must include space for the null-terminator.  Don't pass in the maximum length of the string.  This makes it easy to write code like: <tt>GetString (buffer, sizeof (buffer))</tt>.
+</li><li> <b>Use 'size' for buffer sizes and 'length' for string lengths</b>.  Variables that refer to the size of a buffer (including the null-terminator) must have the word 'size' in them e.g. the size variable in the function described above.  Variables that refer to the length of a string (excluding the null-terminator) must have the word 'length' or 'len' in them.  Using this convention makes it easy to spot violations.
+</li></ul>
+<h3> <span class="mw-headline" id="Orphanage"> Orphanage </span></h3>
+<p><span style="color:red">This section contains notes that don't have a home yet.  They will be consolidated into the correct articles once we have enough information and the correct structure exists.</span>
+</p>
+<h1> <span class="mw-headline" id="Related_articles"> Related articles </span></h1>
+<ul><li> <span style="color:gray">Test framework overview</span>
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 182/1000000
+Post-expand include size: 746/2097152 bytes
+Template argument size: 140/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wikidb:pcache:idhash:71-0!1!0!!en!2!edit=0 and timestamp 20150309064136 -->
+<div class="printfooter">
+Retrieved from "<a href="http://devco-wiki.svc/wiki/index.php/C%2B%2B_Code_Conventions">http://devco-wiki.svc/wiki/index.php/C%2B%2B_Code_Conventions</a>"</div>
+		<div id='catlinks' class='catlinks catlinks-allhidden'></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				 
+				 
+				 
+				 
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(common/DEVCOlogo_small.png);" href="/wiki/index.php/Main_Page" title="Visit the main page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class='generated-sidebar portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-mainpage"><span style="color:gray">Main Page</span></li>
+				<li id="n-recentchanges"><span style="color:gray">Recent changes</span></li>
+				<li id="n-randompage"><span style="color:gray">Random page</span></li>
+				<li id="n-help"><a href="http://meta.wikimedia.org/wiki/Help:Contents" title="The place to find out">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/wiki/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input id="searchInput" title="Search Devco Internal Wiki" accesskey="f" type="search" name="search" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" title="Go to a page with this exact name if exists" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search the pages for this text" />
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><span style="color:gray">What links here</span></li>
+				<li id="t-recentchangeslinked"><span style="color:gray">Related changes</span></li>
+<li id="t-specialpages"><span style="color:gray">Special pages</span></li>
+				<li id="t-print">Permanent link</li>			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="common/images/poweredby_mediawiki_88x31.png" height="31" width="88" alt="Powered by MediaWiki" /></a></div>
+	<ul id="f-list">
+		<li id="lastmod"> This page was last modified on 15 October 2014, at 12:20.</li>
+		<li id="viewcount">This page has been accessed 394 times.</li>
+		<li id="privacy"><span style="color:gray">Privacy policy</span></li>
+		<li id="about"><span style="color:gray">About Devco Internal Wiki</span></li>
+		<li id="disclaimer"><span style="color:gray">Disclaimers</span></li>
+	</ul>
+</div>
+</div>
+
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+<!-- Served in 0.035 secs. --></body></html>

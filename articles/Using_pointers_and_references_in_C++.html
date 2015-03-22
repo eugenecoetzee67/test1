@@ -1,0 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" dir="ltr">
+<head>
+<title>Using pointers and references in C++ - Devco Internal Wiki</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="MediaWiki 1.16.5" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/wiki/opensearch_desc.php" title="Devco Internal Wiki (en)" />
+<link rel="alternate" type="application/atom+xml" title="Devco Internal Wiki Atom feed" href="/wiki/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="common/shared.css?270" media="screen" />
+<link rel="stylesheet" href="common/commonPrint.css?270" media="print" />
+<link rel="stylesheet" href="common/main.css?270" media="screen" />
+<!--[if lt IE 5.5000]><link rel="stylesheet" href="common/IE50Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 5.5000]><link rel="stylesheet" href="common/IE55Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="common/IE60Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="common/IE70Fixes.css?270" media="screen" /><![endif]-->
+<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" media="print" />
+<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Monobook.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/wiki/index.php?title=-&amp;action=raw&amp;maxage=18000&amp;gen=css" />
+<script>
+var skin="monobook",
+stylepath="/wiki/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/wiki/index.php/$1",
+wgScriptPath="/wiki",
+wgScriptExtension=".php",
+wgScript="/wiki/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://devco-wiki.svc",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="Using_pointers_and_references_in_C++",
+wgTitle="Using pointers and references in C++",
+wgAction="view",
+wgArticleId=700,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=14337,
+wgVersion="1.16.5",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "Devco Internal Wiki", "5": "Devco Internal Wiki talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk", "100": "Projects", "101": "Projects talk", "102": "Planning", "103": "Planning talk", "104": "Temp", "105": "Temp talk", "274": "Widget", "275": "Widget talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "devco_internal_wiki": 4, "devco_internal_wiki_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "projects": 100, "projects_talk": 101, "planning": 102, "planning_talk": 103, "temp": 104, "temp_talk": 105, "widget": 274, "widget_talk": 275, "image": 6, "image_talk": 7},
+wgSiteName="Devco Internal Wiki",
+wgCategories=["Still being written"],
+wgRestrictionEdit=[],
+wgRestrictionMove=[];
+</script><script src="common/wikibits.js?270"></script>
+<script src="common/ajax.js?270"></script>
+<script src="/wiki/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook&amp;270"></script>
+
+</head>
+<body class="mediawiki ltr ns-0 ns-subject page-Using_pointers_and_references_in_C skin-monobook">
+<div id="globalWrapper">
+<div id="column-content"><div id="content" >
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading">Using pointers and references in C++</h1>
+	<div id="bodyContent">
+		<h3 id="siteSub">From Devco Internal Wiki</h3>
+		<div id="contentSub"></div>
+		<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<table style="" class="metadata plainlinks ambox ambox-content">
+<tr>
+<td class="ambox-image">
+<div style="width:52px;"> <span style="color:gray"><img alt="Emblem-important.svg" src="images/thumb/Emblem-important.svg/40px-Emblem-important.svg.png" width="40" height="40" /></span></div></td>
+<td class="ambox-text"><b>This article is still in the process of being written.</b> Please note that any information contained within this article may not be complete, accurate or correct at this point</td>
+</table>
+<p>This article describes the conventions for designing and using methods that make use of pointers and refereneces
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Overview"><span class="tocnumber">1</span> <span class="toctext">Overview</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Analysis"><span class="tocnumber">2</span> <span class="toctext">Analysis</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="#Access"><span class="tocnumber">2.1</span> <span class="toctext">Access</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Ownership"><span class="tocnumber">2.2</span> <span class="toctext">Ownership</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Usage_scope"><span class="tocnumber">2.3</span> <span class="toctext">Usage scope</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Copy_semantics"><span class="tocnumber">3</span> <span class="toctext">Copy semantics</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Rule_summary"><span class="tocnumber">4</span> <span class="toctext">Rule summary</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Future_ideas"><span class="tocnumber">5</span> <span class="toctext">Future ideas</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#References"><span class="tocnumber">6</span> <span class="toctext">References</span></a></li>
+</ul>
+</td></tr></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<p><br />
+</p>
+<h1> <span class="mw-headline" id="Overview"> Overview </span></h1>
+<p>This article describes conventions that make it possible to read and write code that conveys more information to the user of or the reader of the code that the C++ standard imposes.  To illustrate the point, look at the following example:
+</p>
+<pre>class ThisClass
+{
+public:
+	void Method1 (ThatClass &amp;object);
+	void Method2 (ThatClass *object);
+};
+</pre>
+<p>Without the context of a well defined method name, documentation or source code, it is impossible to say what will happen to <tt>object</tt> within these 2 methods.  Let's have a look at what can be done to <tt>object</tt>:
+</p>
+<ul><li> The object may be modified.
+</li><li> The object may be copied.
+</li><li> The object may be subject to "move" semantics whereby the contents of the object is transferred to <tt>ThisClass</tt>.
+</li><li> The reference may be stored to be used later in the class.  If the object is reference counted, its reference count will be increased.
+</li><li> The object may be deleted (in the case of <tt>Method1()</tt>, the address needs to be taken, but it is still possible).
+</li><li> The object may be simultaneously in use in another thread, performing any of the above operations as well.
+</li></ul>
+<p><br />
+Now that we know what can be done, lets look at what can reasonably be expected:
+</p>
+<ul><li> <b>Method1()</b>.  All the above operations are reasonable with the exception of deleting the object (this is, of cource, based purely on convention - there is nothing in C++ stopping the method from doing this).
+</li><li> <b>Method2()</b>.  All the above operations are reasonable.
+</li></ul>
+<p><br />
+Looking at the method call from the user's perspective, these operations may be important:
+</p>
+<ul><li> <b>Modification</b>.  The user may want to make sure that objects do not get modified.
+</li><li> <b>Copying</b>.  The copy operation may be very expensive, but the user does not know this.
+</li><li> <b>Moving</b>.  After moving, the object state may not be the same so the user should ensure that s/he does not use the object after the method call.
+</li><li> <b>Storing</b>.  If a reference is stored, the user must ensure <tt>object</tt> remains in scope for the duration of the <tt>ThisClass</tt> object's lifetime.
+</li><li> <b>Deleting</b>.  If <tt>ThisClass</tt> is going to delete the object, then the user cannot and vice versa.
+</li><li> <b>Multithreading</b>.  It is in both <tt>ThisClass</tt> and the user's best interested to know whether <tt>object</tt> may be shared amongst threads.
+</li></ul>
+<p><br />
+From the above example, it is clear that C++ does not provide enough information in the method interface in order to determine all the above possibilities.  Solving this problem is what this article is about.
+</p>
+<h1> <span class="mw-headline" id="Analysis"> Analysis </span></h1>
+<p>The issues mentioned in the overview can be categorised into the following broad categories:
+</p>
+<ul><li> <b>Access</b>.  How may the object be accessed by the method?
+<ul><li> Can the method modify the object?
+</li><li> Can the object be modified or used in another thread at the same time.
+</li></ul>
+</li><li> <b>Ownership</b>.  Who must/can delete the object after the method call?
+</li><li> <b>Usage scope</b>.  How long must the object remain in scope after the method call?
+</li><li> <b>Copy semantics</b>.  If copied, how is that copy done?
+<ul><li> <b>Value semantics</b>.  A deep copy of the object is made.
+</li><li> <b>Move semantics</b>.  The internal contents of the object are transferred or moved, leaving the original object in a usable (i.e. it can be destroyed or assigned to), but unknown state.
+</li><li> <b>Reference counting semantics</b>.  The object is references counted and copies are made only by incrementing an internal reference count.
+</li></ul>
+</li></ul>
+<p>Our goal is to define a set of conventions as well as code that will resolve each of the above issues in a way that is intuitive and does not impose overly complex requirements, but still makes it easy to read and write code.
+</p>
+<h2> <span class="mw-headline" id="Access"> Access </span></h2>
+<p>This is the easiest one as the C++ language already provides us with the tools.  We will use the existing C++ modifiers to provide access information to both the class user and class writer.
+</p>
+<ul><li> <b>const</b>.  This modifier allows the class writer to indicate whether or not the class modifies the object.  All references should be <tt>const</tt> unless write access is required to the object.  Class users can also ensure that their <tt>const</tt> objects cannot be modified by a method that takes a non-<tt>const</tt> object.
+</li><li> <b>volatile</b>.  This modifier allows the class writer to indicate that s/he expects the object to be thread safe.  Conversely, the user can explicitly indicate which objects are thread safe by marking them as <tt>volatile</tt>.  This is discussed in more detail in <a href="C%2B%2B_multithreaded_programming_guidelines.html" title="C++ multithreaded programming guidelines">C++ multithreaded programming guidelines</a>.
+</li></ul>
+<h2> <span class="mw-headline" id="Ownership"> Ownership </span></h2>
+<p>We will tackle the problem of ownership by convention.  As discussed in the overview it is not reasonable to expect an object to be able to delete another object if the object was passed in by reference.  This "makes passing by pointer", the only mechanism by which object ownership may be transferred.  The question now becomes: what should the default be?  Is an object passed in by pointer always deleted by the class to which the pointer was passed?
+</p><p>Looking at all the code out there, it would be unreasonable to impose this restriction as most methods that take object pointers do not take ownership (all the STL containers are like this).  In addition, passing a pointer allows another piece of information: The object can be <tt>NULL</tt> i.e. the method or class may conditionally use the passed in object.
+</p><p>Based on the above, the following convention will be adopted:
+</p><p><b>Rules:</b>
+</p>
+<ul><li> If a method expects a valid object, the object should be passed in by reference.
+</li><li> If a method expects either <tt>NULL</tt> or a valid object, the object should be passed in by pointer.
+</li><li> Ownership is not transferred when an object is passed by reference or by pointer.
+</li></ul>
+<p>The last rule makes it impossible to pass ownership of an object to another object, so we need a mechanism to deal with ownership transfer.  To indicate that ownership is transferred, we make use of a property of <tt>std::auto_ptr</tt>: when an <tt>auto_ptr</tt> is copied, the ownership of the pointer is transferred.  Thus we come up with the additional rule:
+</p><p><b>Rule:</b>
+</p>
+<ul><li> When a class takes ownership of a pointer, the pointer should be passed as a <tt>std::auto_ptr</tt>:
+</li></ul>
+<pre>void Method3 (std::auto_ptr&lt;ThatClass&gt; object);
+</pre>
+<h2> <span class="mw-headline" id="Usage_scope"> Usage scope </span></h2>
+<p>Usage scope covers the issue of whether an object uses the passed in parameter for longer than the method duration.  For example, if <tt>ThisClass::Method1()</tt> stores a reference to <tt>object</tt> and then uses this reference in another method (e.g. the destructor), then the requirement is for <tt>ThisClass</tt> to <b>not</b> outlive <tt>object</tt>.  Doing so will result in a probable access violation when <tt>ThisClass</tt> tries to use <tt>object</tt> after it has been destroyed.
+</p><p>This issue is not easily solved by convention as there is plenty of code that has both method and object scope for references and pointers.
+</p><p>In particular, it is not possible to speculate on the usage scope of a method that takes an object by reference.  It may be possible to say that, in general, references are only used in method scope (i.e. the passed in object is only used for the duration of the method), however, many <span class="glossary" title="Resource Acquisition Is Initialisation">RAII</span>-style<sup id="_ref-raii_0" class="reference"><a href="#_note-raii">[1]</a></sup> classes take a reference in the constructor and then use the reference in the destructor.
+</p><p>The same can be said for objects with methods that take pointers: To be on the safe side, we could assume that objects used under these conditions should be given "object scope" because it may be used again in the class.  A real-world contradiction to this assumption would be where a method may take a valid object or a <tt>NULL</tt> pointer and the object is only used within the scope of the method.
+</p><p>However, the above 2 scenarios do seem to cover most expectations, so we will accept them as our rules.  Whenever there is a violation of these rules, it should be clearly documented in the method documentation.
+</p><p><b>Rules:</b>
+</p>
+<ul><li> When objects are passed by reference, method scope is implied.  <b>Exception:</b> RIAA<sup id="_ref-raii_1" class="reference"><a href="#_note-raii">[1]</a></sup> and guard-style classes may use a reference in the constructor and that reference will have object scope.  This needs to be documented.
+</li><li> When objects are passed by pointer, object scope is implied.
+</li></ul>
+<h1> <span class="mw-headline" id="Copy_semantics"> Copy semantics </span></h1>
+<p>There is currently no way to provide this type of information to the caller or the code reader.  We, therefore, need to rely on the documentation to provide the full information.  To avoid repetitive documentation, we only need to document the exceptions.  Since copy semantics are the most frequently used we will assume that to be the default under the following conditions:
+</p><p><b>Rules:</b>
+</p>
+<ul><li> Copy constructor and assignment use copy semantics unless otherwise documented.  If a copy is a potentially expensive operation, this should be documented as well.
+</li><li> Move semantics are disallowed in all methods other than those that only perform the move operation and are documented to perform move semantics.
+</li></ul>
+<h1> <span class="mw-headline" id="Rule_summary"> Rule summary </span></h1>
+<ul><li> If a method expects a valid object, the object should be passed in by reference.
+</li><li> If a method expects either <tt>NULL</tt> or a valid object, the object should be passed in by pointer.
+</li><li> Ownership is not transferred when an object is passed by reference or by pointer.
+</li><li> When a class takes ownership of a pointer, the pointer should be passed as a <tt>std::auto_ptr</tt>
+</li><li> When objects are passed by reference, method scope is implied.  <b>Exception:</b> RIAA<sup id="_ref-raii_2" class="reference"><a href="#_note-raii">[1]</a></sup> and guard-style classes may use a reference in the constructor and that reference will have object scope.  This needs to be documented.
+</li><li> When objects are passed by pointer, object scope is implied.
+</li><li> Copy constructor and assignment use copy semantics unless otherwise documented.  If a copy is a potentially expensive operation, this should be documented as well.
+</li><li> Move semantics are disallowed in all methods other than those those only perform that operation or are documented to perform move semantics.
+</li></ul>
+<h1> <span class="mw-headline" id="Future_ideas"> Future ideas </span></h1>
+<p>This section discusses a set of proposed templates and template methods that will allow a class writer to ensure that the class user has explicit knowledge of the class' expectations of the object passed in (the names of the templates still need some work).  This issue is logged in Jira as <a href="http://jira.lan:8080/browse/STR-385" class="external text" rel="nofollow">STR-385</a>.  These templates would only be used when a deviation occurs from the above mentioned conventions and rules:
+</p>
+<ul><li> <b>copies</b>.  The class makes a deep copy of the object.  This is useful if the class writer feels that the user needs to be aware that a copy will be made.  In most cases, this will not be used.
+</li><li> <b>moves</b>.  The method employs "move" semantics which will render the object passed in as unusable after the method call.
+</li><li> <b>owns</b>.  Indicates that the pointer parameter will be owned by the container after the method call completes.  The caller may still access the object, but may not delete it.  Use of <tt>owned</tt> implies <tt>object_scope</tt>.  The use of this template and <tt>std::auto_ptr</tt> should be interchangeable, but the <a href="#Ownership">Ownership</a> section should be updated when implemented.
+</li><li> <b>not_null</b>.  Applied to a pointer it indicates that the pointer may not be <tt>NULL</tt>.
+</li><li> <b>allow_null</b>.  Applied to a pointer it indicates that the pointer may be <tt>NULL</tt>.  This is the default setting.
+</li><li> <b>method_scope</b>.  Indicates that the parameter is only used within the scope of the method.  The object may be safely destroyed after the method call.  Can be applied to pointers to override the convention default.
+</li><li> <b>object_scope</b>.  Indicates that the parameter is referenced within the passed-to object.  The object lifetime must be longer that the method's object.  Can be applied to references to override the convention default.
+</li><li> <b>adds_reference</b>.  The method employs "reference counting" semantics which may cause the object to be modified by another object.
+</li></ul>
+<p><br />
+The suggested usage in a method declaration is:
+</p>
+<pre>void Method1 (object_scope&lt;ThatClass&gt; object);
+</pre>
+<p><tt>not_null</tt> may also be applied to <tt>method_scope</tt>, <tt>object_scope</tt> and <tt>owned</tt>:
+</p>
+<pre>void Method2 (owned&lt;not_null&lt;ThatClass&gt; &gt; object);
+</pre>
+<p>Depending on the actual template used (and potentially build settings), the user of the class may have to acknowledge the deviation from default by specifying the expectation explicitly (pseudo code, implementation may look slightly different):
+</p>
+<pre>ThatClass *object = new ThatClass;
+thisClass.Method1 (object_scope (object));
+thisClass.Method2 (owned (object)); // No need to explicitly use not_null
+</pre>
+<h1> <span class="mw-headline" id="References"> References </span></h1>
+<div class="references-small">
+<ol class="references"><li id="_note-raii">↑ <sup><a href="#_ref-raii_0">1.0</a></sup> <sup><a href="#_ref-raii_1">1.1</a></sup> <sup><a href="#_ref-raii_2">1.2</a></sup> <a href="http://en.wikipedia.org/wiki/Resource_acquisition_is_initialization" class="external text" rel="nofollow">Resource Acquisition Is Initialization</a></li></ol></div>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 142/1000000
+Post-expand include size: 1038/2097152 bytes
+Template argument size: 192/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wikidb:pcache:idhash:700-0!1!0!!en!2!edit=0 and timestamp 20150309064137 -->
+<div class="printfooter">
+Retrieved from "<a href="http://devco-wiki.svc/wiki/index.php/Using_pointers_and_references_in_C%2B%2B">http://devco-wiki.svc/wiki/index.php/Using_pointers_and_references_in_C%2B%2B</a>"</div>
+		<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks"><span style="color:gray">Category</span>: <span dir='ltr'><span style="color:gray">Still being written</span></span></div></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				 
+				 
+				 
+				 
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(common/DEVCOlogo_small.png);" href="/wiki/index.php/Main_Page" title="Visit the main page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class='generated-sidebar portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-mainpage"><span style="color:gray">Main Page</span></li>
+				<li id="n-recentchanges"><span style="color:gray">Recent changes</span></li>
+				<li id="n-randompage"><span style="color:gray">Random page</span></li>
+				<li id="n-help"><a href="http://meta.wikimedia.org/wiki/Help:Contents" title="The place to find out">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/wiki/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input id="searchInput" title="Search Devco Internal Wiki" accesskey="f" type="search" name="search" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" title="Go to a page with this exact name if exists" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search the pages for this text" />
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><span style="color:gray">What links here</span></li>
+				<li id="t-recentchangeslinked"><span style="color:gray">Related changes</span></li>
+<li id="t-specialpages"><span style="color:gray">Special pages</span></li>
+				<li id="t-print">Permanent link</li>			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="common/images/poweredby_mediawiki_88x31.png" height="31" width="88" alt="Powered by MediaWiki" /></a></div>
+	<ul id="f-list">
+		<li id="lastmod"> This page was last modified on 8 February 2009, at 15:43.</li>
+		<li id="viewcount">This page has been accessed 84 times.</li>
+		<li id="privacy"><span style="color:gray">Privacy policy</span></li>
+		<li id="about"><span style="color:gray">About Devco Internal Wiki</span></li>
+		<li id="disclaimer"><span style="color:gray">Disclaimers</span></li>
+	</ul>
+</div>
+</div>
+
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+<!-- Served in 0.027 secs. --></body></html>

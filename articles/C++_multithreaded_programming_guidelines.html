@@ -1,0 +1,439 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" dir="ltr">
+<head>
+<title>C++ multithreaded programming guidelines - Devco Internal Wiki</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="MediaWiki 1.16.5" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/wiki/opensearch_desc.php" title="Devco Internal Wiki (en)" />
+<link rel="alternate" type="application/atom+xml" title="Devco Internal Wiki Atom feed" href="/wiki/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="common/shared.css?270" media="screen" />
+<link rel="stylesheet" href="common/commonPrint.css?270" media="print" />
+<link rel="stylesheet" href="common/main.css?270" media="screen" />
+<!--[if lt IE 5.5000]><link rel="stylesheet" href="common/IE50Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 5.5000]><link rel="stylesheet" href="common/IE55Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="common/IE60Fixes.css?270" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="common/IE70Fixes.css?270" media="screen" /><![endif]-->
+<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Common.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Print.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" media="print" />
+<link rel="stylesheet" href="/wiki/index.php?title=MediaWiki:Monobook.css&amp;usemsgcache=yes&amp;ctype=text%2Fcss&amp;smaxage=18000&amp;action=raw&amp;maxage=18000" />
+<link rel="stylesheet" href="/wiki/index.php?title=-&amp;action=raw&amp;maxage=18000&amp;gen=css" />
+<script>
+var skin="monobook",
+stylepath="/wiki/skins",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/wiki/index.php/$1",
+wgScriptPath="/wiki",
+wgScriptExtension=".php",
+wgScript="/wiki/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://devco-wiki.svc",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="C++_multithreaded_programming_guidelines",
+wgTitle="C++ multithreaded programming guidelines",
+wgAction="view",
+wgArticleId=420,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=42080,
+wgVersion="1.16.5",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "Devco Internal Wiki", "5": "Devco Internal Wiki talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk", "100": "Projects", "101": "Projects talk", "102": "Planning", "103": "Planning talk", "104": "Temp", "105": "Temp talk", "274": "Widget", "275": "Widget talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "devco_internal_wiki": 4, "devco_internal_wiki_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "projects": 100, "projects_talk": 101, "planning": 102, "planning_talk": 103, "temp": 104, "temp_talk": 105, "widget": 274, "widget_talk": 275, "image": 6, "image_talk": 7},
+wgSiteName="Devco Internal Wiki",
+wgCategories=[],
+wgRestrictionEdit=[],
+wgRestrictionMove=[];
+</script><script src="common/wikibits.js?270"></script>
+<script src="common/ajax.js?270"></script>
+<script src="/wiki/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook&amp;270"></script>
+
+</head>
+<body class="mediawiki ltr ns-0 ns-subject page-C_multithreaded_programming_guidelines skin-monobook">
+<div id="globalWrapper">
+<div id="column-content"><div id="content" >
+	<a id="top"></a>
+	
+	<h1 id="firstHeading" class="firstHeading">C++ multithreaded programming guidelines</h1>
+	<div id="bodyContent">
+		<h3 id="siteSub">From Devco Internal Wiki</h3>
+		<div id="contentSub"></div>
+		<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<p>This article describes how to use the C++ <tt>volatile</tt> modifier and the <tt>LockPtr</tt> template class to allow the C++ compiler to detect unprotected access to shared objects.
+</p>
+<table style="" class="metadata plainlinks ambox ambox-content">
+<tr>
+<td class="ambox-image">
+<div style="width:52px;"> <span style="color:gray"><img alt="Emblem-important.svg" src="images/thumb/Emblem-important.svg/40px-Emblem-important.svg.png" width="40" height="40" /></span></div></td>
+<td class="ambox-text"><b>The following  should be followed in the absence of a compelling reason to do otherwise</b></td>
+</table>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#The_volatile_modifier"><span class="tocnumber">2</span> <span class="toctext">The volatile modifier</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Using_volatile_in_practice"><span class="tocnumber">3</span> <span class="toctext">Using volatile in practice</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Reading_code"><span class="tocnumber">3.1</span> <span class="toctext">Reading code</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Writing_code"><span class="tocnumber">3.2</span> <span class="toctext">Writing code</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#LockPtr"><span class="tocnumber">3.3</span> <span class="toctext">LockPtr</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-7"><a href="#Designing_thread-safe_classes"><span class="tocnumber">4</span> <span class="toctext">Designing thread-safe classes</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="#Use_the_Thread-safe_Interface_pattern"><span class="tocnumber">4.1</span> <span class="toctext">Use the Thread-safe Interface pattern</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="#Lock_.27this.27_when_your_class_contains_a_single_mutex"><span class="tocnumber">4.2</span> <span class="toctext">Lock 'this' when your class contains a single mutex</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="#Partition_your_data_when_your_class_contains_multiple_mutexes"><span class="tocnumber">4.3</span> <span class="toctext">Partition your data when your class contains multiple mutexes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-11"><a href="#An_exception"><span class="tocnumber">5</span> <span class="toctext">An exception</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="#The_volatile_chain_of_trust"><span class="tocnumber">6</span> <span class="toctext">The volatile chain of trust</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="#Definition"><span class="tocnumber">6.1</span> <span class="toctext">Definition</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Proof_of_correctness"><span class="tocnumber">6.2</span> <span class="toctext">Proof of correctness</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-15"><a href="#Conclusion"><span class="tocnumber">7</span> <span class="toctext">Conclusion</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="#Related_articles"><span class="tocnumber">8</span> <span class="toctext">Related articles</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="#References"><span class="tocnumber">9</span> <span class="toctext">References</span></a></li>
+</ul>
+</td></tr></table><script>if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<p><br />
+</p>
+<h1> <span class="mw-headline" id="Introduction"> Introduction </span></h1>
+<p>This article describes the theory of the C++ <tt>volatile</tt> modifier and how this can be used in conjunction with the C++ compiler and <tt>LockPtr</tt> template class to detect unprotected access to shared objects.  The article also discusses (and provides solutions) to some of the issues experienced during the design and development of multithreaded applications.  This concept has been developed using an article<sup id="_ref-0" class="reference"><a href="#_note-0">[1]</a></sup> by Andrei Alexandrescu as the starting point.
+</p>
+<h1> <span class="mw-headline" id="The_volatile_modifier"> The <tt>volatile</tt> modifier </span></h1>
+<p>The C++ <tt>volatile</tt> modifier works exactly the same way as the C++ <tt>const</tt> modifier: Only <tt>const</tt> methods can be called on <tt>const</tt> objects.  In the same way, only <tt>volatile</tt> methods can be called on <tt>volatile</tt> objects.  We use this property to allow the compiler to detect unprotected access to shared objects.  It works by generating compiler errors when we violate the <tt>volatile</tt>-correctness principle (a similar principle to <tt>const</tt>-correctness<sup id="_ref-1" class="reference"><a href="#_note-1">[2]</a></sup>).  We do this by attaching the <tt>volatile</tt> modifier to variables and methods.  When we use the <tt>volatile</tt> modifier, we are declaring that:
+</p>
+<ul><li> Objects that are declared as <tt>volatile</tt> may be used (not necessarily safely) in multiple threads.  Conversely, objects that are not declared as <tt>volatile</tt> will not be used in multiple threads.
+</li><li> Methods that are declared as <tt>volatile</tt> are thread-safe i.e. it is safe to call them simultaneously from multiple threads.  Conversely, methods that are not declared as <tt>volatile</tt> are not thread safe.
+</li></ul>
+<p>Using volatile objects and volatile methods as described above, allows the compiler to detect (via a compile-time error) calls to non-volatile methods on volatile objects.  This means that the compiler detects access to thread-unsafe methods on objects that may be used in multiple threads.  This is exactly what we want.
+</p>
+<h1> <span class="mw-headline" id="Using_volatile_in_practice"> Using <tt>volatile</tt> in practice </span></h1>
+<p>You will normally encounter <tt>volatile</tt> modifiers in 2 contexts - when reading code and when writing code yourself.  This section describes what <tt>volatile</tt> means in each of these cases.
+</p>
+<h2> <span class="mw-headline" id="Reading_code"> Reading code </span></h2>
+<p>When reading code, volatile objects and methods mean:
+</p>
+<ul><li> <b>Volatile objects</b>.  When you see an object declared as volatile, you can assume that the object will be used in multiple threads - therefore the object should either be thread-safe or access to the object should be synchronised.
+</li><li> <b>Volatile methods</b>.  When you see a volatile method in a <tt>class</tt> or <tt>struct</tt>, you can assume:
+<ul><li> That the method itself is thread-safe and may be called from multiple threads.
+</li><li> The class is designed to be used in a multithreaded environment.
+</li></ul>
+</li><li> <b>Non-volatile methods in a class that has volatile methods</b>. Non-volatile methods in a class that also has volatile methods means that it is up to the programmer to ensure that those methods never get called whilst multiple threads are active on the <b>entire object</b> (i.e. not just the non-<tt>volatile</tt> method in question, but all methods in the object, including other <tt>volatile</tt> methods.  This means that those methods should be treated the same way as constructors and destructors (which are also non-volatile).
+</li></ul>
+<h2> <span class="mw-headline" id="Writing_code"> Writing code </span></h2>
+<p>When writing code, you should follow the rules below:
+</p>
+<ul><li> <b>Volatile objects</b>.  Declare all objects that may used by multiple threads as volatile.
+</li><li> <b>Volatile methods</b>.  Declare all methods that are safe to be called from multiple threads as <tt>volatile</tt>.
+</li><li> <b>Non-volatile methods</b>.  Declare all methods that may only be called with a <b>single thread active</b> in the <b>entire object</b> as non-<tt>volatile</tt>.
+</li><li> <b>LockPtr</b>.  Use the <tt>LockPtr</tt> template class to synchronise access to volatile but thread-unsafe objects as described in the next section.
+</li></ul>
+<h2> <span class="mw-headline" id="LockPtr"> LockPtr </span></h2>
+<p>As described above, it is not possible to call a non-volatile method on a volatile object.  However, once we have synchronised access to the object by taking a synchronisation object (such as a mutex) lock, it should be safe to call the non-volatile method as we are guaranteed that only one thread may access the object at a time.  Use the <tt>LockPtr</tt> template class to simultaneously lock a synchronisation object and strip the <tt>volatile</tt> modifier from a volatile object, thereby allowing us to call the non-volatile method.  <tt>LockPtr</tt> is a <a href="http://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Scope_Guard" class="external text" rel="nofollow">scoped guard</a><sup id="_ref-2" class="reference"><a href="#_note-2">[3]</a></sup> for the synchronisation object used i.e. the synchronisation object will automatically be unlocked when the <tt>LockPtr</tt> object goes out of scope.
+</p><p>The example below illustrates the usage of <tt>LockPtr</tt> to simultaneously lock the mutex and strip away the <tt>volatile</tt> modifier from the <tt>myClass</tt> variable.
+</p>
+<pre>
+class MyClass
+{
+public:
+    MyClass();
+
+    void VolatileMethod() volatile;
+    void NonVolatileMethod();
+};
+
+// Declare an instance of MyClass and a mutex to protect it
+XPCriticalSection myClassMutex;
+volatile MyClass myClass;
+
+// Lock the mutex and allow NonVolatileMethod() to be called
+// because it is illegal to call: myClass.NonVolatileMethod() directly
+{
+    LockPtr&lt;MyClass&gt; myClassPtr (myClass, myClassMutex);
+    myClassPtr-&gt;NonVolatileMethod();
+
+    // Release myClassMutex when myClassPtr goes out of scope
+}
+</pre>
+<h1> <span class="mw-headline" id="Designing_thread-safe_classes"> Designing thread-safe classes </span></h1>
+<p>Whenever possible, make classes independent of threading i.e. they should be reusable in a single or multithreaded environment, without having to be recompiled.  These classes should have no <tt>volatile</tt> methods or data members.  In addition, these classes should not access any global data (such as static data members) unless it can be guaranteed that the data cannot be modified by another thread.  For example, static <tt>const</tt> class data members are normally ok, but static data in a method is not (because most compilers only initialise the data on the first call of the method, and this may not be thread-safe).
+</p>
+<h2> <span class="mw-headline" id="Use_the_Thread-safe_Interface_pattern"> Use the Thread-safe Interface pattern </span></h2>
+<p>According to the Thread-safe Interface design pattern all public methods (with the exception of the constructor and destructor) should be thread safe<sup id="_ref-3" class="reference"><a href="#_note-3">[4]</a></sup>.  Accordingly, all these methods should be declared as <tt>volatile</tt>.  The design pattern also specifies that the public methods should only perform synchronisation, and once all appropriate locks have been acquired, call the internal implementation method to perform the actual task.  The benefit of this is that internal implementation methods may freely call each other without any locking overhead.
+</p><p>Use the following guidelines to implement the Thread-safe Interface pattern:
+</p>
+<ul><li> Declare all public methods as volatile.
+</li><li> Only perform synchronisation operations within volatile methods.  Delegate all functionality to private, non-volatile methods (optionally methods with the same name, but without the <tt>volatile</tt> modifier).  If necessary, apply <tt>GUARANTEED_THREAD_SAFE</tt> to the '<tt>this</tt>' pointer to be able to call the implementation function.
+</li><li> Don’t perform any synchronisation from within the non-volatile implementation methods.
+</li><li> Don’t call any volatile methods from within the non-volatile implementation methods.
+</li><li> Inline the public volatile methods or the private implementation method as appropriate.
+</li></ul>
+<h2> <span class="mw-headline" id="Lock_.27this.27_when_your_class_contains_a_single_mutex"> Lock '<tt>this</tt>' when your class contains a single mutex </span></h2>
+<p>If your class uses an internal mutex to lock access to the class, then lock the '<tt>this</tt>' pointer when accessing internal methods and data members.  For example,
+</p>
+<pre>
+void MyClass::VolatileMethod() volatile
+{
+    LockPtr&lt;MyClass&gt; self (*this, this-&gt;mutex);
+    self-&gt;NonVolatileMethod();
+}
+</pre>
+<p>Or, if your class derives from a mutex type, then you can use the self-locking version of <tt>LockPtr</tt>:
+</p>
+<pre>
+void MyClass::VolatileMethod() volatile
+{
+    LockPtr&lt;MyClass&gt; self (*this);
+    self-&gt;NonVolatileMethod();
+}
+</pre>
+<h2> <span class="mw-headline" id="Partition_your_data_when_your_class_contains_multiple_mutexes"> Partition your data when your class contains multiple mutexes </span></h2>
+<p>When your class uses multiple mutexes to lock different parts of the object data, then define inner <tt>class</tt>'s or <tt>struct</tt>’s to logically group the data together.  You need only do this if a single mutex locks multiple pieces of data.  If a single mutex only locks a single piece of data (such as a container), then it is not necessary to create inner structs and classes.  Derive the inner <tt>struct</tt> or <tt>class</tt> from the mutex type that you wish to use and use the self-locking form of <tt>LockPtr</tt>.  If you are protecting a single data member with a mutex, you can still use the inner <tt>struct</tt> or <tt>class</tt> princicple, or you can define the mutex at the same level as the data member.  For example:
+</p>
+<pre>
+class Example
+{
+private:
+    typedef std::map&lt;std::string, std::string&gt; PropertyContainer;
+
+private:
+    XPCriticalSection optionsMutex;
+    int minimum;
+    int maximum;
+    int defaultValue;
+
+    XPCriticalSection propertiesMutex;
+    PropertyContainer properties;
+};
+</pre>
+<p>Should rather be written as:
+</p>
+<pre>
+class Example
+{
+private:
+    typedef std::map&lt;std::string, std::string&gt; PropertyContainer;
+    struct Options: public XPCriticalSection
+    {
+        int minimum;
+        int maximum;
+        int defaultValue;
+    };
+
+private:
+    Options options;
+
+    XPCriticalSection propertiesMutex;
+    PropertyContainer properties;
+};
+</pre>
+<p>Or,
+</p>
+<pre>
+class Example
+{
+private:
+    class PropertyContainer:
+        public XPCriticalSection,
+        public std::map&lt;std::string, std::string&gt;
+    {
+    } properties;
+
+    struct Options: public XPCriticalSection
+    {
+        int minimum;
+        int maximum;
+        int defaultValue;
+    } options;
+};
+</pre>
+<p>The reason to do it this way, is so that you can always lock the options atomically, in the same manner:
+</p>
+<pre>
+LockPtr&lt;Options, ExclusiveLock&gt; optionsPtr (this-&gt;options);
+optionsPtr-&gt;minimum = 100;
+</pre>
+<p>You may also choose the define the variable name for the inner <tt>struct</tt> or <tt>class</tt> inline to the <tt>struct</tt> or <tt>class</tt> definition as shown in the last example above.
+</p>
+<blockquote>
+<b>NOTE:</b> It is easy to incorrectly lock your data with the wrong synchronisation object when applying the Thread-safe Interface pattern in conjunction with data partitioning (this normally happens when refactoring an object that follows the Thread-safe Interface pattern).  This can happen when you remove the <tt>volatile</tt> modifier from the <tt>this</tt> pointer and then call a non-volatile method, and the non-volatile method in turn accesses data that is supposed to be protected with its own data partition's synchronisation object.  This is only problematic when you use both synchronisation objects (for <tt>this</tt> and your partitioned data) in different places.  If you only use a single synchronisation object, then the worst that can happen is that your object may not be as concurrent as you like.  The good news is that a debug build should detect inconsistent access as long as both synchronisation objects are accessed in the same run.
+</blockquote>
+<h1> <span class="mw-headline" id="An_exception"> An exception </span></h1>
+<p>In the section on using <tt>volatile</tt> in practice, we stated that all objects that may be used in multiple threads should be declared as <tt>volatile</tt>.  There is one case in which it may become impractical to do this.  In this case it is acceptable to not follow this rule.  The exception applies to the creation of thread-safe classes i.e. classes that have volatile member functions.  The reason is described below.
+</p><p>Consider the example below where the object is protected by a critical section (by deriving from XPCriticalSection) and we are employing the Thread-safe Interface pattern by taking the lock and forwarding the request to a private, internal method.
+</p>
+<pre>
+class Example: private XPCriticalSection
+{
+public:
+    void SetName (const std::string &amp;value) volatile
+    {
+        LockPtr&lt;Example, ExclusiveLock&gt; self (*this);
+        self-&gt;SetName (&quot;name&quot;, value);
+    }
+
+private:
+    void SetName (const std::string &amp;value)
+    {
+        this-&gt;properties.Insert (&quot;name&quot;, value);  // doesn't compile
+    }
+
+private:
+    volatile PropertyContainer properties;
+};
+</pre>
+<p>Unfortunately, in this case, the code does not compile because the <tt>PropertyContainer::Insert()</tt> method is not volatile.  This is due to <tt>properties</tt> being declared as volatile.  A couple of possibilities exist to rectify the compiler error:
+</p>
+<ol><li> <b>Use <tt>LockPtr</tt> to acquire a lock within the private method</b>.  Unfortunately, this violates the principles of the Thread-safe Interface pattern.  In addition, it may also cause a self-deadlock if the synchronisation object used is not capable of recursive locks.
+</li><li> <b>Make the private method volatile</b>.  This still doesn't work as <tt>PropertyContainer::Insert()</tt> is non-volatile.  It also has the drawback of implying that the method is thread-safe, which it is not.
+</li><li> <b>Use <tt>GUARANTEED_THREAD_SAFE</tt> to strip away the volatile modifier</b>.  This works by asserting that the access to <tt>properties</tt> is guaranteed to be thread safe, however, if you have many methods in a class that assume a mutex lock, then it can become painful to access the data members in this way.
+</li><li> <b>Use <tt>LockPtrReference</tt></b>.  <tt>LockPtrReference</tt> allows us to pass the <tt>LockPtr</tt> object to the private method.  This will also work, but it clutters up the interfaces of all internal methods.
+</li><li> <b>Remove the <tt>volatile</tt> modifier from <tt>properties</tt></b>.  This will work, but violates our rule of declaring all objects as <tt>volatile</tt> if we know the will be used in multiple threads (which we do).
+</li></ol>
+<p>Whilst there are a couple of solutions, there is no obvious silver bullet.  Options (3) and (4) both result in workable solutions at the expense of tedium and polluted interfaces.  Option (5) provides clean interfaces and clean code, but violates our volatile object rule which could allow unprotected access to shared objects.  However, with a bit of discipline, we can safely use option (5).
+</p>
+<h1> <span class="mw-headline" id="The_volatile_chain_of_trust"> The volatile chain of trust </span></h1>
+<p>The previous section introduced a reasonable exception to the rule of always declaring objects, that may be shared between threads, as volatile.  This section defines the volatile chain of trust and shows that if the chain of trust is maintained, then the compiler will always be able to detect an unsafe data access.
+</p>
+<h2> <span class="mw-headline" id="Definition"> Definition </span></h2>
+<p>If an object is being used in the context of multiple threads, it trusts that:
+</p>
+<ul><li> it is declared as volatile, or
+</li><li> if it is not declared as volatile, it is a data member of another thread-safe object.
+</li></ul>
+<h2> <span class="mw-headline" id="Proof_of_correctness"> Proof of correctness </span></h2>
+<p>It is considered proof that the chain of trust is correct if we can show that the compiler will always be able to detect unsafe data access if the chain of trust is maintained.  If we can show that all the conditions that may cause an unsafe data access cannot occur when the chain of trust is maintained, then we have also proven the chain of trust.
+</p><p>The compiler may miss an unsafe data access if it is allowed to call an unprotected (i.e. not synchronised) non-volatile method.  This can only occur under the following circumstances:
+</p>
+<ul><li> If the object is considered non-volatile at the time of the method call.
+</li><li> If <tt>volatile</tt> is cast away or incorrect use is made of <tt>GUARANTEED_THREAD_SAFE</tt>.  This is considered a bug and won't be considered.
+</li></ul>
+<p>Thus, we need only prove that it is impossible for an object to be considered non-volatile if the chain of trust is maintained.
+</p><p>As mentioned above, the chain of trust requires that an object used by multiple threads:
+</p>
+<ul><li> Be declared as <tt>volatile</tt>.
+</li><li> Be a data member of a thread safe object.
+</li></ul>
+<p>Obviously, if the object is declared as volatile, then it can never be considered non-volatile (unless the volatility was cast away, which we specifically excluded).  If, however, <tt>LockPtr</tt> is used to remove volatility then the object is synchronised and it is safe to use.
+</p><p>If the object is part of a thread-safe object, then the thread-safe object has volatile methods (the methods that can safely be called from multiple threads).  Within these methods, the volatility is transferred to the data members (in the same way that <tt>const</tt> is transferred for <tt>const</tt> methods.  Once again, the data member cannot be accessed in a non-volatile way.  Even if the volatile method delegates the call to a non-volatile method, the user will still have to strip away volatility on the <tt>this</tt> pointer by using <tt>LockPtr</tt>.
+</p>
+<h1> <span class="mw-headline" id="Conclusion"> Conclusion </span></h1>
+<p>Whenever you are writing multi-threaded code, you should follow the principles below:
+</p>
+<ul><li> Try to design objects that can safely be used within both multi-threaded and single threaded code (i.e. objects with non-volatile methods).  Multi-threaded programming is hard to get right and you should try to keep the code that has knowledge of concurrency as small as possible.  Doing this will save you many long hours of debugging.
+</li><li> Objects that may be accessed in multiple threads <b>must</b> be marked as <tt>volatile</tt>.
+</li><li> Thread-safe methods should be marked as <tt>volatile</tt>.
+</li><li> Always maintain the <a href="#The_volatile_chain_of_trust_title">Volatile chain of trust</a>.
+</li></ul>
+<h1> <span class="mw-headline" id="Related_articles"> Related articles </span></h1>
+<ul><li> <a href="Advanced_multi-threaded_data_locking_in_C%2B%2B.html" title="Advanced multi-threaded data locking in C++">Advanced multi-threaded data locking in C++</a>
+</li></ul>
+<h1> <span class="mw-headline" id="References"> References </span></h1>
+<div class="references-small">
+<ol class="references"><li id="_note-0"><a href="#_ref-0">↑</a> <a href="http://www.ddj.com/cpp/184403766" class="external text" rel="nofollow">volatile: Multithreaded Programmer's Best Friend</a></li>
+<li id="_note-1"><a href="#_ref-1">↑</a> <a href="http://en.wikipedia.org/wiki/Const_correctness" class="external text" rel="nofollow">Wikipedia: Const-correctness</a></li>
+<li id="_note-2"><a href="#_ref-2">↑</a> <a href="http://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Scope_Guard" class="external text" rel="nofollow">The scoped guard idiom</a></li>
+<li id="_note-3"><a href="#_ref-3">↑</a> <a href="http://www.cs.wustl.edu/~schmidt/PDF/locking-patterns.pdf" class="external text" rel="nofollow">Strategized Locking, Thread-safe Interface, and Scoped Locking</a></li></ol></div>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 262/1000000
+Post-expand include size: 803/2097152 bytes
+Template argument size: 107/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wikidb:pcache:idhash:420-0!1!0!!en!2!edit=0 and timestamp 20150309064136 -->
+<div class="printfooter">
+Retrieved from "<a href="http://devco-wiki.svc/wiki/index.php/C%2B%2B_multithreaded_programming_guidelines">http://devco-wiki.svc/wiki/index.php/C%2B%2B_multithreaded_programming_guidelines</a>"</div>
+		<div id='catlinks' class='catlinks catlinks-allhidden'></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				 
+				 
+				 
+				 
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(common/DEVCOlogo_small.png);" href="/wiki/index.php/Main_Page" title="Visit the main page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class='generated-sidebar portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-mainpage"><span style="color:gray">Main Page</span></li>
+				<li id="n-recentchanges"><span style="color:gray">Recent changes</span></li>
+				<li id="n-randompage"><span style="color:gray">Random page</span></li>
+				<li id="n-help"><a href="http://meta.wikimedia.org/wiki/Help:Contents" title="The place to find out">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/wiki/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input id="searchInput" title="Search Devco Internal Wiki" accesskey="f" type="search" name="search" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" title="Go to a page with this exact name if exists" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search the pages for this text" />
+			</form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><span style="color:gray">What links here</span></li>
+				<li id="t-recentchangeslinked"><span style="color:gray">Related changes</span></li>
+<li id="t-specialpages"><span style="color:gray">Special pages</span></li>
+				<li id="t-print">Permanent link</li>			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="common/images/poweredby_mediawiki_88x31.png" height="31" width="88" alt="Powered by MediaWiki" /></a></div>
+	<ul id="f-list">
+		<li id="lastmod"> This page was last modified on 29 September 2014, at 22:41.</li>
+		<li id="viewcount">This page has been accessed 117 times.</li>
+		<li id="privacy"><span style="color:gray">Privacy policy</span></li>
+		<li id="about"><span style="color:gray">About Devco Internal Wiki</span></li>
+		<li id="disclaimer"><span style="color:gray">Disclaimers</span></li>
+	</ul>
+</div>
+</div>
+
+<script>if (window.runOnloadHook) runOnloadHook();</script>
+<!-- Served in 0.023 secs. --></body></html>
