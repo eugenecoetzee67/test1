@@ -7,6 +7,12 @@ void function1(void)
     std::cout.flush();
 }
 
+class Functor1
+{
+	
+	
+	
+}
 int main(int argc, char* argv[])
 {
     int numCPUs = std::thread::hardware_concurrency();
