@@ -10,7 +10,7 @@ void function1(void)
 class Functor1
 {
 public:
-    void operator()(std::string paramMessage)
+    void operator()(std::string& paramMessage)
     {
         std::cout << "hello im functor 1 ***THREAD2*** saying " << paramMessage << std::endl;
      }	
@@ -58,7 +58,7 @@ if (thread2.joinable() == true)
 
     //demonstrate the power and syntax of lambda function in C++
     auto myByeFunction = [](std::string paramPrintMessage)->void {   std::cout << "\nbye " << paramPrintMessage << std::endl;   };
-    myByeFunction(" - this is end of the ---MAIN--- thread");
+    myByeFunction(message);
     
     std::cout.flush();
     return 0;
