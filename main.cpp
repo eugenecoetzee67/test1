@@ -4,7 +4,6 @@
 void function1(void)
 {
     std::cout << "\nhello world I'm function1 in ***THREAD1*** " << std::endl; 
-    std::cout.flush();
 }
 
 class Functor1
@@ -13,7 +12,8 @@ public:
     void operator()(std::string& paramMessage)
     {
         std::cout << "hello im functor 1 ***THREAD2*** saying " << paramMessage << std::endl;
-     }	
+        paramMessage = "no no walk ... like a girl";
+    }	
 	
 };
 
@@ -56,6 +56,8 @@ if (thread2.joinable() == true)
 	std::cout << "\nthread2 joining ---MAIN--- thread(MT) " << std::endl;
 	thread2.join();
 }
+ 
+    std::cout << "\nthis is how message was changed by functor : " << message << std::endl;
 
     //demonstrate the power and syntax of lambda function in C++
     auto myByeFunction = [](std::string paramPrintMessage)->void {   std::cout << "\nbye " << paramPrintMessage << std::endl;   };
