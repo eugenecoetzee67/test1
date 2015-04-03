@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
  
     std::string message = "walk like a man";
     std::thread thread1(function1);
-    std::thread thread2((Functor1()), message);
+    std::thread thread2((Functor1()), std::ref(message));
     
     std::cout << "\n thread1 id = " << thread1.get_id() << std::endl;
     
@@ -53,6 +53,7 @@ int main(int argc, char* argv[])
 
 if (thread2.joinable() == true)
 {
+	std::cout << "\nthread2 joining ---MAIN--- thread(MT) " << std::endl;
 	thread2.join();
 }
 
