@@ -6,14 +6,16 @@ std::mutex mutex1;
 
 void sharedPrint(std::string paramMessage, int paramCounter, std::string paramThreadMarker)
 {
-    mutex1.lock();
+    //use RAII instead of raw mutex to prevent dead locks
+    std::lock_guard<std::mutex> guard1(mutex1);
+    //mutex1.lock();
     std::cout << paramMessage << paramCounter << paramThreadMarker;
     if (paramCounter == 50)
     {
         std::cout.flush();
         return;
     }
-    mutex1.unlock();
+    //mutex1.unlock();
 } 
 
 
