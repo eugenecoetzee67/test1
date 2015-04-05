@@ -6,7 +6,7 @@ void function1(void)
     //std::cout << "\nhello world I'm function1 in ***THREAD1*** " << std::endl; 
     for (int i = 100;  i >= 0;  i --)
     {
-        std::cout << "T1 = " << i << " * ";
+        std::cout << "T1 = " << i << " *********** ";
     }     
 }
 
@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
     {
         for (int i = 0;  i <= 100;  i ++)
         {
-            std::cout << "MT = " << i << " ? ";
+            std::cout << "MT = " << i << " ??????????? ";
         }     
     } 
     catch(...)
