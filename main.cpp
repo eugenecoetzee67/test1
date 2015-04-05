@@ -8,6 +8,11 @@ void sharedPrint(std::string paramMessage, int paramCounter, std::string paramTh
 {
     mutex1.lock();
     std::cout << paramMessage << paramCounter << paramThreadMarker;
+    if (paramCounter == 50)
+    {
+        std::cout.flush();
+        return;
+    }
     mutex1.unlock();
 } 
 
