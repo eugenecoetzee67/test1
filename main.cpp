@@ -1,12 +1,24 @@
 #include <iostream>
 #include <thread>
+#include <mutex>
+
+std::mutex mutex1; 
+
+void sharedPrint(std::string paramMessage, int paramCounter, std::string paramThreadMarker)
+{
+    mutex1.lock();
+    std::cout << paramMessage << paramCounter << paramThreadMarker;
+    mutex1.unlock();
+} 
+
+
 
 void function1(void)
 {
     //std::cout << "\nhello world I'm function1 in ***THREAD1*** " << std::endl; 
     for (int i = 100;  i >= 0;  i --)
     {
-        std::cout << "T1 = " << i << " *********** ";
+        sharedPrint("T1 = ", i, " *********** ");
     }     
 }
 
@@ -41,7 +53,7 @@ int main(int argc, char* argv[])
     {
         for (int i = 0;  i <= 100;  i ++)
         {
-            std::cout << "MT = " << i << " ??????????? ";
+            sharedPrint("MT = ", i, " ??????????? ");
         }     
     } 
     catch(...)
