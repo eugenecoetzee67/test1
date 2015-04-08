@@ -1,31 +1,48 @@
 #include <iostream>
+#include <fstream>
 #include <thread>
 #include <mutex>
 
-std::mutex mutex1; 
-
-void sharedPrint(std::string paramMessage, int paramCounter, std::string paramThreadMarker)
+class LogFile
 {
-    //use RAII instead of raw mutex to prevent dead locks
-    std::lock_guard<std::mutex> guard1(mutex1);
-    //mutex1.lock();
-    std::cout << paramMessage << paramCounter << paramThreadMarker;
-    if (paramCounter == 50)
-    {
-        std::cout.flush();
-        return;
+private:
+    std::mutex mutex1; 
+    std::ofstream outputFile; 
+public:
+    LogFile()
+    { 
+        outputFile.open("log.txt");
+
     }
-    //mutex1.unlock();
-} 
+    ~LogFile()
+    {
+        outputFile.close();
+
+    }
+
+    void sharedPrint(std::string paramMessage, int paramCounter, std::string paramThreadMarker)
+    {
+        //use RAII instead of raw mutex to prevent dead locks
+        std::lock_guard<std::mutex> guard1(mutex1);
+        //mutex1.lock();
+        outputFile << paramMessage << paramCounter << paramThreadMarker;
+        if (paramCounter == 50)
+        {
+            outputFile.flush();
+            return;
+        }
+        //mutex1.unlock();
+    } 
+
+};
 
 
-
-void function1(void)
+void function1(LogFile& paramLogFile)
 {
     //std::cout << "\nhello world I'm function1 in ***THREAD1*** " << std::endl; 
     for (int i = 100;  i >= 0;  i --)
     {
-        sharedPrint("T1 = ", i, " *********** ");
+        paramLogFile.sharedPrint("T1 = ", i, " *********** ");
     }     
 }
 
@@ -42,6 +59,7 @@ public:
 
 int main(int argc, char* argv[])
 {   
+    LogFile myLogFile;
     //clear console and move curses to top left corner
     std::cout << "\x1B[2J\x1B[H"; 
     int numCPUs = std::thread::hardware_concurrency();
@@ -49,18 +67,18 @@ int main(int argc, char* argv[])
     std::cout << "\n main thread id = " << std::this_thread::get_id() << std::endl;
  
     std::string message = "walk like a man";
-    std::thread thread1(function1);
+    std::thread thread1(function1, std::ref(myLogFile));
 //    std::thread thread2((Functor1()), std::ref(message));
     
     std::cout << "\n thread1 id = " << thread1.get_id() << std::endl;
+
     
 //    std::cout << "\n thread2 id = " << thread2.get_id() << std::endl;
-    
     try
     {
         for (int i = 0;  i <= 100;  i ++)
         {
-            sharedPrint("MT = ", i, " ??????????? ");
+            myLogFile.sharedPrint("MT = ", i, " ??????????? ");
         }     
     } 
     catch(...)
