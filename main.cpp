@@ -8,6 +8,14 @@ class LogFile
 private:
     std::mutex mutex1; 
     std::ofstream outputFile; 
+
+/* Notes:
+ 1) Never return outputFile to outside world
+ 2) Never pass outputFile as an argument to a function
+ 3) Design interfaces to consolodate access to data members
+    in the same critical section 
+*/
+
 public:
     LogFile()
     { 
