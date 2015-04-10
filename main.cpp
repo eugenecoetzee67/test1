@@ -7,6 +7,7 @@ class LogFile
 {
 private:
     std::mutex mutex1; 
+    std::mutex mutex2;
     std::ofstream outputFile; 
 
 /* Notes:
@@ -28,17 +29,26 @@ public:
 
     }
 
-    void sharedPrint(std::string paramMessage, int paramCounter, std::string paramThreadMarker)
+    void sharedPrint_th1(std::string paramMessage, int paramCounter, std::string paramThreadMarker)
     {
+        std::lock(mutex1, mutex2);
         //use RAII instead of raw mutex to prevent dead locks
-        std::lock_guard<std::mutex> guard1(mutex1);
+        std::lock_guard<std::mutex> guard1(mutex1, std::adopt_lock);
+        std::lock_guard<std::mutex> guard2(mutex2, std::adopt_lock);
         //mutex1.lock();
-        outputFile << paramMessage << paramCounter << paramThreadMarker;
-        if (paramCounter == 50)
-        {
-            outputFile.flush();
-            return;
-        }
+        std::cout << paramMessage << paramCounter << paramThreadMarker;
+        //mutex1.unlock();
+    } 
+
+    void sharedPrint_main(std::string paramMessage, int paramCounter, std::string paramThreadMarker)
+    {
+        std::lock(mutex1, mutex2);
+        //use RAII instead of raw mutex to prevent dead locks
+        //order of locking mutex1, mutex2 is critical to prevent deadlock
+        std::lock_guard<std::mutex> guard2(mutex2, std::adopt_lock);
+        std::lock_guard<std::mutex> guard1(mutex1, std::adopt_lock);
+        //mutex1.lock();
+        std::cout << paramMessage << paramCounter << paramThreadMarker;
         //mutex1.unlock();
     } 
 
@@ -48,9 +58,9 @@ public:
 void function1(LogFile& paramLogFile)
 {
     //std::cout << "\nhello world I'm function1 in ***THREAD1*** " << std::endl; 
-    for (int i = 100;  i >= 0;  i --)
+    for (int i = 1000;  i >= 0;  i --)
     {
-        paramLogFile.sharedPrint("T1 = ", i, " *********** ");
+        paramLogFile.sharedPrint_th1("T1 = ", i, " *********** ");
     }     
 }
 
@@ -84,9 +94,9 @@ int main(int argc, char* argv[])
 //    std::cout << "\n thread2 id = " << thread2.get_id() << std::endl;
     try
     {
-        for (int i = 0;  i <= 100;  i ++)
+        for (int i = 0;  i <= 1000;  i ++)
         {
-            myLogFile.sharedPrint("MT = ", i, " ??????????? ");
+            myLogFile.sharedPrint_main("MT = ", i, " ??????????? ");
         }     
     } 
     catch(...)
