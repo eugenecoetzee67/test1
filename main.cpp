@@ -31,14 +31,21 @@ public:
     void sharedPrint(std::string paramMessage, int paramCounter, std::string paramThreadMarker)
     {
         //use RAII instead of raw mutex to prevent dead locks
-        std::lock_guard<std::mutex> guard1(mutex1);
+        std::unique_lock<std::mutex> locker1(mutex1, std::defer_lock);
+        //std::lock_guard<std::mutex> guard1(mutex1);
         //mutex1.lock();
-        outputFile << paramMessage << paramCounter << paramThreadMarker;
+        //outputFile << paramMessage << paramCounter << paramThreadMarker;
+        
+        locker1.lock();
+        std::cout << paramMessage << paramCounter << paramThreadMarker;
+        
         if (paramCounter == 50)
         {
             outputFile.flush();
             return;
         }
+        locker1.unlock();
+        
         //mutex1.unlock();
     } 
 
@@ -48,7 +55,7 @@ public:
 void function1(LogFile& paramLogFile)
 {
     //std::cout << "\nhello world I'm function1 in ***THREAD1*** " << std::endl; 
-    for (int i = 100;  i >= 0;  i --)
+    for (int i = 1000;  i >= 0;  i --)
     {
         paramLogFile.sharedPrint("T1 = ", i, " *********** ");
     }     
@@ -84,7 +91,7 @@ int main(int argc, char* argv[])
 //    std::cout << "\n thread2 id = " << thread2.get_id() << std::endl;
     try
     {
-        for (int i = 0;  i <= 100;  i ++)
+        for (int i = 0;  i <= 1000;  i ++)
         {
             myLogFile.sharedPrint("MT = ", i, " ??????????? ");
         }     
