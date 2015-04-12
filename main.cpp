@@ -6,7 +6,11 @@
 class LogFile
 {
 private:
-    std::mutex mutex1; 
+    std::mutex mutex1;
+    //use separate mutex for file
+    //std::mutex mutexFile;
+    //or even better use a once_flag
+    std::once_flag openFileOnceFlag; 
     std::ofstream outputFile; 
 
 /* Notes:
@@ -18,8 +22,9 @@ private:
 
 public:
     LogFile()
-    { 
-        outputFile.open("log.txt");
+    {
+        //demonstrate file protection with lazy initialisation 
+        //outputFile.open("log.txt");
 
     }
     ~LogFile()
@@ -29,7 +34,18 @@ public:
     }
 
     void sharedPrint(std::string paramMessage, int paramCounter, std::string paramThreadMarker)
-    {
+    {   
+        //inefficient and NOT THREAD SAFE
+        //if (!outputFile.is_open())
+        //{
+        //    std::cout << "\nthread " << paramMessage << " opening log.txt \n";
+        //    outputFile.open("log.txt"); 
+        //}
+
+        // correct way to open a shared file only once 
+        std::call_once(openFileOnceFlag, [&]() {std::cout << "\nthread " << paramMessage << " opening log.txt \n"; outputFile.open("log_txt");});         
+
+
         //use RAII instead of raw mutex to prevent dead locks
         std::unique_lock<std::mutex> locker1(mutex1, std::defer_lock);
         //std::lock_guard<std::mutex> guard1(mutex1);
@@ -37,14 +53,18 @@ public:
         //outputFile << paramMessage << paramCounter << paramThreadMarker;
         
         locker1.lock();
-        std::cout << paramMessage << paramCounter << paramThreadMarker;
+        
+        //demonstrates move sematics
+        std::unique_lock<std::mutex> locker2 = std::move(locker1);
+        
+        outputFile << paramMessage << paramCounter << paramThreadMarker;
         
         if (paramCounter == 50)
         {
             outputFile.flush();
             return;
         }
-        locker1.unlock();
+        locker2.unlock();
         
         //mutex1.unlock();
     } 
