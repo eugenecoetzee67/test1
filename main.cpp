@@ -1,18 +1,30 @@
 #include <iostream>
 #include <thread>
+#include <mutex>
+#include <deque>
+
+std::mutex mutex1;
+std::deque<int> myDeque; 
+
 
 void function1(void)
 {
-    std::cout << "\nhello world I'm function1 in thread1 " << std::endl; 
-    std::cout.flush();
+    std::cout << "\nhello world I'm function1 in thread1 saying" << std::endl; 
 }
 
 class Functor1
 {
+
 public:
+    Functor1(void)
+    {
+        std::cout << "\nFunctor1 constructor" << std::endl; 
+
+    }
+
     void operator()(std::string paramMessage)
     {
-        std::cout << "hello im functor 1 saying " << paramMessage << std::endl;
+        std::cout << "hello im functor 1 in thread2 saying" << paramMessage << std::endl;
      }	
 	
 };
@@ -31,19 +43,10 @@ int main(int argc, char* argv[])
     
     std::cout << "\n thread2 id = " << thread2.get_id() << std::endl;
     
-    try
+    for (int i = 0;  i <= 100;  i ++)
     {
-        for (int i = 0;  i <= 100;  i ++)
-        {
-            std::cout << "MT = " << i << ".";
-        }     
-    } 
-    catch(...)
-    {
-        thread1.join();
-        throw;
-    }
-  
+        std::cout << "MT = " << i << ".";
+    }     
 
     if (thread1.joinable() == true)
     {   
@@ -51,10 +54,11 @@ int main(int argc, char* argv[])
         thread1.join();
     }
 
-if (thread2.joinable() == true)
-{
+    if (thread2.joinable() == true)
+    {
+        std::cout << "\nthread2 joining main thread(MT) " << std::endl;
 	thread2.join();
-}
+    }
 
     //demonstrate the power and syntax of lambda function in C++
     auto myByeFunction = [](std::string paramPrintMessage)->void {   std::cout << "\nBYE " << paramPrintMessage << std::endl;   };
