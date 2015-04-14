@@ -18,7 +18,9 @@ void function1(void)
         myDeque.push_front(count);
         std::cout << "\ndata in =  " << count << std::endl;
         lock1.unlock();
-        condition1.notify_one();
+        //wake up one thread if available
+        //condition1.notify_one();
+        condition1.notify_all();
         std::this_thread::sleep_for(std::chrono::seconds(1));
         count--;
     }     
@@ -46,7 +48,8 @@ public:
             std::unique_lock<std::mutex> lock1(mutex1);
             //if (!myDeque.empty())
             //{
-            condition1.wait(lock1);
+            //predicate prevents spurious wake up
+            condition1.wait(lock1, [](){ return !myDeque.empty();});
             data = myDeque.back();
             std::cout << "\ndata out =  " << data << std::endl;
             myDeque.pop_back();
