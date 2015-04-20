@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int factorial(future<int>&  paramFutureN)
+int factorial(shared_future<int>  paramFutureN)
 {
     int result = 1;
     cout << "factorial function executing in thread id = " << this_thread::get_id() << endl;
@@ -36,7 +36,12 @@ int main(int argc, char* argv[])
    
     promise<int> promise1;
     future<int> futureArg = promise1.get_future(); 
-    future<int> future1 = async(launch::async, factorial, ref(futureArg));
+    
+    //doesn't compile on g++ 4.6
+    shared_future<int> futureSharedArg = futureArg.share();
+    future<int> future1 = async(launch::async, factorial, futureSharedArg);
+    future<int> future2 = async(launch::async, factorial, futureSharedArg);
+    future<int> future3 = async(launch::async, factorial, futureSharedArg);
      
     //sleep a bit 
     this_thread::sleep_for(chrono::seconds(2));    
@@ -47,8 +52,12 @@ int main(int argc, char* argv[])
     //promise1.set_exception(make_exception_ptr(runtime_error("to err is human")));
     
     int result1 = future1.get();
+    int result2 = future2.get();
+    int result3 = future3.get();
 
     cout << "result1 = " << result1 << endl; 
+    cout << "result2 = " << result2 << endl; 
+    cout << "result3 = " << result3 << endl; 
 
     //thread1.join();    
 
