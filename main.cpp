@@ -1,65 +1,44 @@
 #include <iostream>
-//#include <thread>
+#include <thread>
 #include <future>
 
 using namespace std;
 
-int factorial(shared_future<int>  paramFutureN)
+class Example
 {
-    int result = 1;
-    cout << "factorial function executing in thread id = " << this_thread::get_id() << endl;
-    cout << "I'm waiting for that promised value of N " << endl;
-    int N = paramFutureN.get();
-    cout << "I got that promised value of N now! " << endl;
-    for (int i = N;  i > 1;  i--)
+
+public:
+
+    int operator()(int paramN)
     {
-        result *= i; 
+        int result = 1;
+        cout << "this thread id = " << this_thread::get_id()<< endl;
+        for (int i = paramN;  i > 1;  i--)
+        {
+            result *= i; 
+        }
+    
+        return result; 
     }
     
-    return result; 
-}
+    double returnDouble(int paramNumber)
+    {
+        return (double) paramNumber; 
+    }
+
+};
 
 int main(int argc, char* argv[])
 {   
     //clear console and move curses to top left corner
     cout << "\x1B[2J\x1B[H"; 
-    int numCPUs = std::thread::hardware_concurrency();
+    int numCPUs = thread::hardware_concurrency();
     cout << "number of CPUs = " << numCPUs << endl;
     cout << "main thread id = " << this_thread::get_id() << endl;
- 
-    //thread thread1(factorial, 4);
-    
-    //future<int> future1 = async(factorial, 4);
-    
-    //doesn't compile on g++ 4.6 
-    //future<int> future1 = async(launch::deferred, factorial, 4);
-   
-    promise<int> promise1;
-    future<int> futureArg = promise1.get_future(); 
-    
-    //doesn't compile on g++ 4.6
-    shared_future<int> futureSharedArg = futureArg.share();
-    future<int> future1 = async(launch::async, factorial, futureSharedArg);
-    future<int> future2 = async(launch::async, factorial, futureSharedArg);
-    future<int> future3 = async(launch::async, factorial, futureSharedArg);
-     
-    //sleep a bit 
-    this_thread::sleep_for(chrono::seconds(2));    
+    Example myExample1;
+    thread thread1(myExample1, 5); 
+    async(launch::async, myExample1, 10);
 
-    promise1.set_value(4);
-
-    //force exception if the promise cannot be kept
-    //promise1.set_exception(make_exception_ptr(runtime_error("to err is human")));
-    
-    int result1 = future1.get();
-    int result2 = future2.get();
-    int result3 = future3.get();
-
-    cout << "result1 = " << result1 << endl; 
-    cout << "result2 = " << result2 << endl; 
-    cout << "result3 = " << result3 << endl; 
-
-    //thread1.join();    
-
+    thread1.join();
     return 0;
 } 
