@@ -8,11 +8,11 @@ class Example
 {
 
 public:
-
-    int operator()(int paramN)
+    
+    int operator()(int paramN, string paramDescription)
     {
         int result = 1;
-        cout << "this thread id = " << this_thread::get_id()<< endl;
+        cout << "this thread id = " << this_thread::get_id()<< " called with descriptor " << paramDescription << endl;
         for (int i = paramN;  i > 1;  i--)
         {
             result *= i; 
@@ -35,10 +35,22 @@ int main(int argc, char* argv[])
     int numCPUs = thread::hardware_concurrency();
     cout << "number of CPUs = " << numCPUs << endl;
     cout << "main thread id = " << this_thread::get_id() << endl;
-    Example myExample1;
-    thread thread1(myExample1, 5); 
-    async(launch::async, myExample1, 10);
+    Example myCallable1;
+    
+    //create a copy of myCallable1() and invoke as functor in a different thread
+    thread thread1(myCallable1, 5, "thread object invoked with a copy of collable object");
+
+    //launch myCallable1 as a functor in a diferent thread
+    thread thread2(ref(myCallable1), 6, "thread object invoked with original callable object");
+
+
+ 
+    async(launch::async, myCallable1, 10, "async function");
+    bind(myCallable1, 12, "bind function");
+    once_flag myOnceFlag1;
+    call_once(myOnceFlag1, myCallable1, 15, "call_once function");
 
     thread1.join();
+    thread2.join();
     return 0;
 } 
