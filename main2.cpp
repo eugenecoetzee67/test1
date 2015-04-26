@@ -33,7 +33,17 @@ vector<char> readInputFile(const string& paramInputFileName)
     }
     size_t fileSize = inputFile.tellg(); 
     cout << "input file size = " << fileSize << " bytes " << endl;
-    vector<char> inputBuffer(fileSize);
+    vector<char> inputBuffer;
+    try
+    {
+        inputBuffer.resize(fileSize);
+    }
+    catch(bad_alloc& allocationException)
+    {
+        cout << "could not allocate" << fileSize << " bytes " << endl;
+        throw;
+    }
+
     inputFile.seekg(0, ios::beg);
     inputFile.read(&inputBuffer[0], fileSize);
     cout << inputFile.gcount() << " bytes were read " << endl;
@@ -98,10 +108,10 @@ int main(int argc, char* argv[])
     
     int numberOfBytesWritten = syncedReadWriteFile(sourceFileName,destinationFileName);    
 
-    //let main trad do something until ???
-    for (int i = 0; i <= 500000; i++)
+    cout << "main thread is doing some work " << endl;  
+    for (int i = 0;  i <= 500000;  i++)
     {    
-        cout << i;
+        cout << "\r" << i;
     }
     cout << "\nbye" << endl;
     return EXIT_SUCCESS;
